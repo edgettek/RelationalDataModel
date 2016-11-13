@@ -110,6 +110,27 @@ C_S_G_Row* delete(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	return NULL;
 }
 
+void printCSGRelation(C_S_G_Row* table[], bool debug) {
+
+	FILE *CSGFile;
+
+    char buff[255];
+
+    CSGFile = fopen("CSG.txt", "r" );
+
+	if (CSGFile == NULL)
+	{
+		perror("Error opening file!\n");
+		exit(1);
+	}
+
+
+    fscanf(CSGFile, "%s", buff);
+    printf("1 : %s\n", buff );
+	fclose(CSGFile);
+
+}
+
 int main(int argc, char const *argv[])
 {
 	C_S_G_Row* CSGtable[TABLE_SIZE];
@@ -127,5 +148,9 @@ int main(int argc, char const *argv[])
 	for (int i = 0; i < 6; i++) {
 		C_S_G_Row* returned = delete(test, CSGtable, true);
 	}
+
+
+	printCSGRelation(CSGtable, true);
+
 	return 0;
 }
