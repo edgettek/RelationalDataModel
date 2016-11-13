@@ -2,15 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "attributes.h"
 
 int TABLE_SIZE = 1009;
-
-typedef struct CSGrow {
-	char Course[6]; // These two rows combine
-	int StudentId;	// to make the primary key
-	char Grade[3];
-	struct CSGrow* next;
-} CSGrow;
 
 int stringToInt(char* string, int stringSize) {
 
@@ -34,19 +28,19 @@ int hash(char courseTitle[], int strSize, int id, int hashPrime) {
 	return returner;
 }
 
-void insert(CSGrow row, CSGrow* table[], bool debug) {
+void insert(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	int index = hash(row.Course, 6, row.StudentId, TABLE_SIZE);
 
-	CSGrow* this = table[index];
+	C_S_G_Row* this = table[index];
 	while ((this->next) != NULL) {
 		this = this->next;
 	}
 
-	CSGrow* newer = (CSGrow*) malloc(sizeof(CSGrow));
+	C_S_G_Row* newer = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
 	this->next = newer;
 	this = newer;
 
-	memcpy(this, &row, sizeof(CSGrow));
+	memcpy(this, &row, sizeof(C_S_G_Row));
 
 	if (debug) {
 		printf("Successfully inserted new row at hashtable index %i\n", index);
@@ -54,10 +48,10 @@ void insert(CSGrow row, CSGrow* table[], bool debug) {
 	return;
 }
 
-CSGrow* lookup(CSGrow row, CSGrow* table[], bool debug) {
+C_S_G_Row* lookup(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	int index = hash(row.Course, 6, row.StudentId, TABLE_SIZE);
 
-	CSGrow* this = table[index];
+	C_S_G_Row* this = table[index];
 	while ((this->next) != NULL) {
 		if (strcmp(this->Course, row.Course) == 0 && 
 			this->StudentId == row.StudentId && 
@@ -82,13 +76,13 @@ CSGrow* lookup(CSGrow row, CSGrow* table[], bool debug) {
 	}
 }
 
-CSGrow* delete(CSGrow row, CSGrow* table[], bool debug) {
+C_S_G_Row* delete(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	int index = hash(row.Course, 6, row.StudentId, TABLE_SIZE);
 
-	CSGrow* this = table[index];
+	C_S_G_Row* this = table[index];
 
 	if (this->Course == row.Course && this->StudentId == row.StudentId && this->Grade == row.Grade) {
-		CSGrow* returner = this->next;
+		C_S_G_Row* returner = this->next;
 		this->next = (this->next)->next;
 		if (debug) {
 			printf("Successfully deleted row at hashtable index %i\n", index);
@@ -101,7 +95,7 @@ CSGrow* delete(CSGrow row, CSGrow* table[], bool debug) {
 			(this->next)->StudentId == row.StudentId && 
 			strcmp((this->next)->Grade, row.Grade) == 0) {
 			
-			CSGrow* returner = this->next;
+			C_S_G_Row* returner = this->next;
 			this->next = (this->next)->next;
 			if (debug) {
 				printf("Successfully deleted row at hashtable index %i\n", index);
@@ -118,30 +112,20 @@ CSGrow* delete(CSGrow row, CSGrow* table[], bool debug) {
 
 int main(int argc, char const *argv[])
 {
-	CSGrow* CSGtable[TABLE_SIZE];
+	C_S_G_Row* CSGtable[TABLE_SIZE];
 	for (int i = 0; i < TABLE_SIZE; i++) {
-		CSGtable[i] = (CSGrow*) malloc(sizeof(CSGrow));
+		CSGtable[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
 	}
-	CSGrow test;
+	C_S_G_Row test;
 	strcpy(test.Course, "CS101");
 	test.StudentId = 12345;
 	strcpy(test.Grade, "A+");
 	for (int i = 0; i < 3; i++) {
 		insert(test, CSGtable, true);
 	}
-	CSGrow* lookedup = lookup(test, CSGtable, true);
+	C_S_G_Row* lookedup = lookup(test, CSGtable, true);
 	for (int i = 0; i < 6; i++) {
-		CSGrow* returned = delete(test, CSGtable, true);
+		C_S_G_Row* returned = delete(test, CSGtable, true);
 	}
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-

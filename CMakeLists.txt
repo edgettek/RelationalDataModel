@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5)
 project(RelationalDataModel)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-    README.txt)
+    database.c attributes.h)
 
 add_executable(RelationalDataModel ${SOURCE_FILES})
