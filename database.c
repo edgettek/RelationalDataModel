@@ -6,6 +6,7 @@
 
 int TABLE_SIZE = 1009;
 
+
 int stringToInt(char* string, int stringSize) {
 
 	int step = sizeof(char);
@@ -19,7 +20,7 @@ int stringToInt(char* string, int stringSize) {
 	return returner;
 }
 
-int hash(char courseTitle[], int strSize, int id, int hashPrime) {
+int hashIntAndString(char courseTitle[], int strSize, int id, int hashPrime) {
 
 	char* start = &courseTitle[0];
 	int stringPart = stringToInt(start, strSize);
@@ -28,8 +29,32 @@ int hash(char courseTitle[], int strSize, int id, int hashPrime) {
 	return returner;
 }
 
-void insert(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
-	int index = hash(row.Course, 6, row.StudentId, TABLE_SIZE);
+int hashInt(int id, int hashPrime){
+    int returner = (id)%hashPrime;
+    return returner;
+}
+
+int hashTwoStrings(char str1[], int strSize1, char str2[],int strSize2, int hashPrime){
+	char* start1 = &str1[0];
+	int stringPartOne = stringToInt(start1, strSize1);
+
+	char* start2 = &str2[0];
+	int stringPartTwo = stringToInt(start2, strSize2);
+
+	int returner = (stringPartOne + stringPartTwo)%hashPrime;
+	return returner;
+
+}
+
+int hashOneString(char str[], int strSize, int hashPrime){
+	char* start1 = &str[0];
+	int stringPart = stringToInt(start1, strSize);
+	int returner = (stringPart)%hashPrime;
+	return returner;
+}
+
+void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
+	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
 
 	C_S_G_Row* this = table[index];
 	while ((this->next) != NULL) {
@@ -48,8 +73,8 @@ void insert(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	return;
 }
 
-C_S_G_Row* lookup(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
-	int index = hash(row.Course, 6, row.StudentId, TABLE_SIZE);
+C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
+	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
 
 	C_S_G_Row* this = table[index];
 	while ((this->next) != NULL) {
@@ -76,8 +101,8 @@ C_S_G_Row* lookup(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	}
 }
 
-C_S_G_Row* delete(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
-	int index = hash(row.Course, 6, row.StudentId, TABLE_SIZE);
+C_S_G_Row* deleteCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
+	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
 
 	C_S_G_Row* this = table[index];
 
@@ -110,13 +135,92 @@ C_S_G_Row* delete(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	return NULL;
 }
 
+void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug) {
+	int index = hashInt(row.StudentId, TABLE_SIZE);
+
+	SNAPRow* this = table[index];
+
+	while ((this->next) != NULL) {
+		this = this->next;
+	}
+
+	SNAPRow* newer = (SNAPRow*) malloc(sizeof(SNAPRow));
+	this->next = newer;
+	this = newer;
+
+	memcpy(this, &row, sizeof(SNAPRow));
+
+	if (debug) {
+		printf("Successfully inserted new row at hashtable index %i\n", index);
+	}
+	return;
+}
+
+SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
+	int index = hashInt(row.StudentId, TABLE_SIZE);
+
+	SNAPRow* this = table[index];
+	while ((this->next) != NULL) {
+		if (this->StudentId == row.StudentId){
+			if (debug) {
+				printf("Successfully found matching row at hashtable index %i\n", index);
+			}
+			return this;
+		}
+		this = this->next;
+	}
+	if (this->StudentId == row.StudentId) {
+		if (debug) {
+			printf("Successfully found matching row at hashtable index %i\n", index);
+		}
+		return this;
+	} else {
+		if (debug) {
+			printf("Could not find matching row at hashtable index %i, returning null\n", index);
+		}
+		return NULL;
+	}
+}
+
+SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug){
+	int index = hashInt(row.StudentId, TABLE_SIZE);
+
+	SNAPRow* this = table[index];
+
+	if (this->StudentId == row.StudentId) {
+		SNAPRow* returner = this->next;
+		this->next = (this->next)->next;
+		if (debug) {
+			printf("Successfully deleted row at hashtable index %i\n", index);
+		}
+		return returner;
+	}
+
+	while ((this->next) != NULL) {
+		if ((this->next)->StudentId == row.StudentId){
+
+			SNAPRow* returner = this->next;
+			this->next = (this->next)->next;
+			if (debug) {
+				printf("Successfully deleted row at hashtable index %i\n", index);
+			}
+			return returner;
+		}
+		this = this->next;
+	}
+	if (debug) {
+		printf("No matching row to delete in hashtable at index %i, returning null\n", index);
+	}
+	return NULL;
+}
+
 void printCSGRelation(C_S_G_Row* table[], bool debug) {
 
 	FILE *CSGFile;
 
     char buff[255];
 
-    CSGFile = fopen("CSG.txt", "r" );
+    CSGFile = fopen("CSG.txt", "w" );
 
 	if (CSGFile == NULL)
 	{
@@ -133,6 +237,7 @@ void printCSGRelation(C_S_G_Row* table[], bool debug) {
 
 int main(int argc, char const *argv[])
 {
+	// 1) CSG
 	C_S_G_Row* CSGtable[TABLE_SIZE];
 	for (int i = 0; i < TABLE_SIZE; i++) {
 		CSGtable[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
@@ -142,15 +247,36 @@ int main(int argc, char const *argv[])
 	test.StudentId = 12345;
 	strcpy(test.Grade, "A+");
 	for (int i = 0; i < 3; i++) {
-		insert(test, CSGtable, true);
+		insertCSG(test, CSGtable, true);
 	}
-	C_S_G_Row* lookedup = lookup(test, CSGtable, true);
+	C_S_G_Row* lookedup = lookupCSG(test, CSGtable, true);
 	for (int i = 0; i < 6; i++) {
-		C_S_G_Row* returned = delete(test, CSGtable, true);
+		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
 	}
-
-
 	printCSGRelation(CSGtable, true);
 
+
+	// 2) SNAP
+    SNAPRow* SNAPtable[TABLE_SIZE];
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        SNAPtable[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
+    }
+    SNAPRow snapRow;
+	snapRow.name = "C. Brown";
+    snapRow.StudentId = 12345;
+    strcpy(snapRow.address, "12 Apple St.");
+	snapRow.phone = "555-1234";
+
+	for (int i = 0; i < 3; i++) {
+		insertSNAP(snapRow, SNAPtable, true);
+	}
+
+	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
+	for (int i = 0; i < 6; i++) {
+		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
+	}
 	return 0;
 }
+
+
+
