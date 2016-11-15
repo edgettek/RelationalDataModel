@@ -4,6 +4,6 @@ project(RelationalDataModel)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-    database.c attributes.h)
+        csg.c attributes.h snap.c)
 
 add_executable(RelationalDataModel ${SOURCE_FILES})

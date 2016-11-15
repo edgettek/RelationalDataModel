@@ -5,6 +5,9 @@
 #ifndef RELATIONALDATAMODEL_ATTRIBUTES_H
 #define RELATIONALDATAMODEL_ATTRIBUTES_H
 
+#include <stdbool.h>
+
+extern int TABLE_SIZE;
 
 typedef struct C_S_G_Row{
     char Course[6]; // These two rows combine
@@ -42,9 +45,20 @@ typedef struct CRRow{
     struct CRRow* next;
 } CRRow;
 
+extern int stringToInt(char* string, int stringSize);
 
+extern int hashIntAndString(char courseTitle[], int strSize, int id, int hashPrime);
 
+extern int hashInt(int id, int hashPrime);
 
+extern int hashTwoStrings(char str1[], int strSize1, char str2[],int strSize2, int hashPrime);
+
+extern int hashOneString(char str[], int strSize, int hashPrime);
+
+extern void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
+extern void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug);
+extern SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug);
+extern SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 
 
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H
