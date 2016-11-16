@@ -26,7 +26,7 @@ typedef struct SNAPRow{
 
 typedef struct CPRow{
     char* course;//primary key
-    char* day;
+    char* prereq;
     struct CPRow* next;
 } CPRow;
 

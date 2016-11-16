@@ -14,13 +14,16 @@ void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug) {
 
     SNAPRow* this = table[index];
 
-    while ((this->next) != NULL) {
+    while ((this->next) != NULL ){
         this = this->next;
     }
 
     SNAPRow* newer = (SNAPRow*) malloc(sizeof(SNAPRow));
     this->next = newer;
     this = newer;
+    this->next = NULL;
+    newer->next = NULL;
+    row.next = NULL;
 
     memcpy(this, &row, sizeof(SNAPRow));
 

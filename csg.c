@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -180,27 +181,27 @@ void printCSGRelation(C_S_G_Row* table[], bool debug) {
 int main(int argc, char const *argv[])
 {
 	// 1) CSG
-	C_S_G_Row* CSGtable[TABLE_SIZE];
-	for (int i = 0; i < TABLE_SIZE; i++) {
-		CSGtable[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
-		CSGtable[i]->next = NULL;
-	}
-	C_S_G_Row test;
-	strcpy(test.Course, "CS101");
-	test.StudentId = 12345;
-	strcpy(test.Grade, "A+");
-	for (int i = 0; i < 3; i++) {
-		insertCSG(test, CSGtable, true);
-	}
-        
-        printf("IN MAIN: at 553 Course: %s StudentID: %d Grade: %s\n", CSGtable[553]->Course, CSGtable[553]->StudentId, CSGtable[553]->Grade);
-
-	printCSGRelation(CSGtable, true);
-
-	C_S_G_Row* lookedup = lookupCSG(test, CSGtable, true);
-	for (int i = 0; i < 6; i++) {
-		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
-	}
+//	C_S_G_Row* CSGtable[TABLE_SIZE];
+//	for (int i = 0; i < TABLE_SIZE; i++) {
+//		CSGtable[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+//		CSGtable[i]->next = NULL;
+//	}
+//	C_S_G_Row test;
+//	strcpy(test.Course, "CS101");
+//	test.StudentId = 12345;
+//	strcpy(test.Grade, "A+");
+//	for (int i = 0; i < 3; i++) {
+//		insertCSG(test, CSGtable, true);
+//	}
+//
+//        printf("IN MAIN: at 553 Course: %s StudentID: %d Grade: %s\n", CSGtable[553]->Course, CSGtable[553]->StudentId, CSGtable[553]->Grade);
+//
+//	printCSGRelation(CSGtable, true);
+//
+//	C_S_G_Row* lookedup = lookupCSG(test, CSGtable, true);
+//	for (int i = 0; i < 6; i++) {
+//		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
+//	}
 
 
 
@@ -208,21 +209,37 @@ int main(int argc, char const *argv[])
     SNAPRow* SNAPtable[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {
         SNAPtable[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
+		SNAPtable[i]->name=NULL;
+		SNAPtable[i]->StudentId=NULL;
+		SNAPtable[i]->next = NULL;
+		SNAPtable[i]->address = NULL;
+		SNAPtable[i]->phone = NULL;
     }
     SNAPRow snapRow;
 	snapRow.name = "C. Brown";
-    snapRow.StudentId = 12345;
+    snapRow.StudentId = 28890;
     strcpy(snapRow.address, "12 Apple St.");
 	snapRow.phone = "555-1234";
 
-	for (int i = 0; i < 3; i++) {
-		insertSNAP(snapRow, SNAPtable, true);
+	insertSNAP(snapRow, SNAPtable, true);
+
+	SNAPRow row2;
+	row2.name = "Raina Langevin";
+	row2.StudentId = 12345;
+	strcpy(row2.address, "Burlington Street, Burlington, VT");
+	row2.phone = "555-3334";
+	for(int i = 0; i<2; i++){
+		insertSNAP(row2, SNAPtable, true);
 	}
 
 	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
 	for (int i = 0; i < 6; i++) {
 		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
 	}
+
+	//CP
+	CPRow* CPtable[TABLE_SIZE];
+
 	return 0;
 }
 
