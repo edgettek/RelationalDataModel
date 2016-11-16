@@ -286,6 +286,16 @@ int main(int argc, char const *argv[])
 	cdhRow1.hour = "9AM";
 
 	insertCDH(cdhRow1, CDHTable, true);
+
+	CDHRow* current;
+
+	for(int i = 0; i < TABLE_SIZE; i++) {
+		current = CDHTable[i];
+
+		printf("i == %d: Course == %s Day == %s Hour == %s\n", i, current->course, current->day, current->hour);
+	}
+
+
 	CDHRow* findCDHRow1 = lookupCDH(cdhRow, CDHTable, true);
 	CDHRow* findCDHRow2 = lookupCDH(cdhRow1, CDHTable, true);
 
