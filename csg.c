@@ -237,32 +237,64 @@ int main(int argc, char const *argv[])
 //		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
 //	}
 
-	//CP
-	CPRow* CPtable[TABLE_SIZE];
+	// 3) CP
+//	CPRow* CPtable[TABLE_SIZE];
+//
+//	for(int i = 0;i<TABLE_SIZE; i++){
+//		CPtable[i] = (CPRow*)malloc(sizeof(CPRow));
+//		CPtable[i]->next = NULL;
+//		CPtable[i]->course = NULL;
+//		CPtable[i]->prereq = NULL;
+//	}
+//	CPRow cpRow;
+//	cpRow.course = "CS101";
+//	cpRow.prereq = "CS100";
+//
+//	insertCP(cpRow, CPtable, true);
+//	CPRow cpRow2;
+//	cpRow2.course = "EE200";
+//	cpRow2.prereq = "EE005";
+//
+//	insertCP(cpRow2, CPtable, true);
+//	CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
+//	CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
+//
+//	CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
+//
+//	return 0;
+
+	// 4) CDH
+	CDHRow* CDHTable[TABLE_SIZE];
+
 
 	for(int i = 0;i<TABLE_SIZE; i++){
-		CPtable[i] = (CPRow*)malloc(sizeof(CPRow));
-		CPtable[i]->next = NULL;
-		CPtable[i]->course = NULL;
-		CPtable[i]->prereq = NULL;
+		CDHTable[i] = (CDHRow*)malloc(sizeof(CDHRow));
+		CDHTable[i]->next = NULL;
+		CDHTable[i]->course = NULL;
+		CDHTable[i]->day = NULL;
+		CDHTable[i]->hour = NULL;
 	}
-	CPRow cpRow;
-	cpRow.course = "CS101";
-	cpRow.prereq = "CS100";
+	CDHRow cdhRow;
+	cdhRow.course = "CS101";
+	cdhRow.day = "M";
+	cdhRow.hour = "9AM";
 
-	insertCP(cpRow, CPtable, true);
-	CPRow cpRow2;
-	cpRow2.course = "EE200";
-	cpRow2.prereq = "EE005";
+	insertCDH(cdhRow, CDHTable, true);
+	CDHRow cdhRow1;
+	cdhRow1.course = "CSC101";
+	cdhRow1.day = "W";
+	cdhRow1.hour = "9AM";
 
-	insertCP(cpRow2, CPtable, true);
-	CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
-	CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
+	insertCDH(cdhRow1, CDHTable, true);
+	CDHRow* findCDHRow1 = lookupCDH(cdhRow, CDHTable, true);
+	CDHRow* findCDHRow2 = lookupCDH(cdhRow1, CDHTable, true);
 
-	CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
+	CDHRow* deletedCDH = deleteCDH(cdhRow, CDHTable, true);
 
 	return 0;
-}
+
+
+	}
 
 
 

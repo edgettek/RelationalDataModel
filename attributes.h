@@ -61,6 +61,12 @@ extern SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern void insertCP(CPRow row, CPRow* table[], bool debug);
 extern CPRow* deleteCP(CPRow row, CPRow* table[], bool debug);
 extern CPRow* lookupCP(CPRow row, CPRow* table[], bool debug);
+extern void insertCDH(CDHRow row, CDHRow* table[], bool debug);
+CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug);
+CDHRow* deleteCDH(CDHRow row, CDHRow* table[], bool debug);
+
+
+
 
 
 
