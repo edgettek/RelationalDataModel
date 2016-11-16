@@ -246,6 +246,10 @@ int main(int argc, char const *argv[])
 		CPtable[i]->course = NULL;
 		CPtable[i]->prereq = NULL;
 	}
+
+
+
+
 	CPRow cpRow;
 	cpRow.course = "CS101";
 	cpRow.prereq = "CS100";
@@ -256,6 +260,19 @@ int main(int argc, char const *argv[])
 	cpRow2.prereq = "EE005";
 
 	insertCP(cpRow2, CPtable, true);
+
+
+	CPRow* current;
+
+	for(int j = 0; j < TABLE_SIZE; j++) {
+		current = CPtable[j];
+
+		printf("j == %d: Course == %s PreReq == %s\n", j, current->course, current->prereq);
+
+
+	}
+
+
 	CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
 	CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
 

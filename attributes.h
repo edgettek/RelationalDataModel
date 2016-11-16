@@ -53,7 +53,6 @@ extern int hashTwoStrings(char str1[], int strSize1, char str2[],int strSize2, i
 
 extern int hashOneString(char str[], int strSize, int hashPrime);
 
-extern void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
 extern void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug);
