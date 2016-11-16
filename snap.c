@@ -41,6 +41,7 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
         if (this->StudentId == row.StudentId){
             if (debug) {
                 printf("Successfully found matching row at hashtable index %i\n", index);
+                printf("name is %s\n", this->name);
             }
             return this;
         }
@@ -49,6 +50,7 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
     if (this->StudentId == row.StudentId) {
         if (debug) {
             printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("name is %s\n", this->name);
         }
         return this;
     } else {

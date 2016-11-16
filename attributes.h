@@ -30,14 +30,12 @@ typedef struct CPRow{
     struct CPRow* next;
 } CPRow;
 
-
 typedef struct CDHRow{
     char* course;//primary key- course and day together
     char* day;
     char* hour;
     struct CDHRow* next;
 } CDHRow;
-
 
 typedef struct CRRow{
     char* name;//primary key
@@ -59,6 +57,11 @@ extern void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
 extern void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug);
+
+extern void insertCP(CPRow row, CPRow* table[], bool debug);
+extern CPRow* deleteCP(CPRow row, CPRow* table[], bool debug);
+extern CPRow* lookupCP(CPRow row, CPRow* table[], bool debug);
+
 
 
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H

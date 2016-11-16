@@ -75,7 +75,6 @@ void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 
 C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
-
 	C_S_G_Row* this = table[index];
 	while ((this->next) != NULL) {
 		if (strcmp(this->Course, row.Course) == 0 && 
@@ -83,6 +82,7 @@ C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 			strcmp(this->Grade, row.Grade) == 0) {
 			if (debug) {
 				printf("Successfully found matching row at hashtable index %i\n", index);
+				printf("course  %s\n", this->Course);
 			}
 			return this;
 		}
@@ -135,7 +135,6 @@ C_S_G_Row* deleteCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	return NULL;
 }
 
-
 void printCSGRelation(C_S_G_Row* table[], bool debug) {
 
 	FILE *CSGFile;
@@ -187,14 +186,14 @@ int main(int argc, char const *argv[])
 //		CSGtable[i]->next = NULL;
 //	}
 //	C_S_G_Row test;
-//	strcpy(test.Course, "CS101");
+//	strcpy(test.Course, "CS10101010");
 //	test.StudentId = 12345;
 //	strcpy(test.Grade, "A+");
 //	for (int i = 0; i < 3; i++) {
 //		insertCSG(test, CSGtable, true);
 //	}
 //
-//        printf("IN MAIN: at 553 Course: %s StudentID: %d Grade: %s\n", CSGtable[553]->Course, CSGtable[553]->StudentId, CSGtable[553]->Grade);
+//	printf("IN MAIN: at 553 Course: %s StudentID: %d Grade: %s\n", CSGtable[553]->Course, CSGtable[553]->StudentId, CSGtable[553]->Grade);
 //
 //	printCSGRelation(CSGtable, true);
 //
@@ -205,40 +204,62 @@ int main(int argc, char const *argv[])
 
 
 
-	// 2) SNAP
-    SNAPRow* SNAPtable[TABLE_SIZE];
-    for (int i = 0; i < TABLE_SIZE; i++) {
-        SNAPtable[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
-		SNAPtable[i]->name=NULL;
-		SNAPtable[i]->StudentId=NULL;
-		SNAPtable[i]->next = NULL;
-		SNAPtable[i]->address = NULL;
-		SNAPtable[i]->phone = NULL;
-    }
-    SNAPRow snapRow;
-	snapRow.name = "C. Brown";
-    snapRow.StudentId = 28890;
-    strcpy(snapRow.address, "12 Apple St.");
-	snapRow.phone = "555-1234";
-
-	insertSNAP(snapRow, SNAPtable, true);
-
-	SNAPRow row2;
-	row2.name = "Raina Langevin";
-	row2.StudentId = 12345;
-	strcpy(row2.address, "Burlington Street, Burlington, VT");
-	row2.phone = "555-3334";
-	for(int i = 0; i<2; i++){
-		insertSNAP(row2, SNAPtable, true);
-	}
-
-	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
-	for (int i = 0; i < 6; i++) {
-		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
-	}
+//	// 2) SNAP
+//    SNAPRow* SNAPtable[TABLE_SIZE];
+//    for (int i = 0; i < TABLE_SIZE; i++) {
+//        SNAPtable[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
+//		SNAPtable[i]->name=NULL;
+//		SNAPtable[i]->StudentId=NULL;
+//		SNAPtable[i]->next = NULL;
+//		SNAPtable[i]->address = NULL;
+//		SNAPtable[i]->phone = NULL;
+//    }
+//    SNAPRow snapRow;
+//	snapRow.name = "C. Brown";
+//    snapRow.StudentId = 28890;
+//    strcpy(snapRow.address, "12 Apple St.");
+//	snapRow.phone = "555-1234";
+//
+//	insertSNAP(snapRow, SNAPtable, true);
+//
+//	SNAPRow row2;
+//	row2.name = "Raina Langevin";
+//	row2.StudentId = 12345;
+//	strcpy(row2.address, "Burlington Street, Burlington, VT");
+//	row2.phone = "555-3334";
+//	for(int i = 0; i<2; i++){
+//		insertSNAP(row2, SNAPtable, true);
+//	}
+//
+//	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
+//	thisRow = lookupSNAP(row2, SNAPtable, true);
+//	for (int i = 0; i < 6; i++) {
+//		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
+//	}
 
 	//CP
 	CPRow* CPtable[TABLE_SIZE];
+
+	for(int i = 0;i<TABLE_SIZE; i++){
+		CPtable[i] = (CPRow*)malloc(sizeof(CPRow));
+		CPtable[i]->next = NULL;
+		CPtable[i]->course = NULL;
+		CPtable[i]->prereq = NULL;
+	}
+	CPRow cpRow;
+	cpRow.course = "CS101";
+	cpRow.prereq = "CS100";
+
+	insertCP(cpRow, CPtable, true);
+	CPRow cpRow2;
+	cpRow2.course = "EE200";
+	cpRow2.prereq = "EE005";
+
+	insertCP(cpRow2, CPtable, true);
+	CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
+	CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
+
+	CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
 
 	return 0;
 }

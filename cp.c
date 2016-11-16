@@ -56,5 +56,33 @@ CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
 }
 
 CPRow* deleteCP(CPRow row, CPRow* table[], bool debug){
+    int index = hashOneString(row.course, 6, TABLE_SIZE);
 
+    CPRow* this = table[index];
+
+    if (this->course == row.course) {
+        CPRow* returner = this->next;
+        this->next = (this->next)->next;
+        if (debug) {
+            printf("Successfully deleted row at hashtable index %i\n", index);
+        }
+        return returner;
+    }
+
+    while ((this->next) != NULL) {
+        if (strcmp((this->next)->course, row.course) == 0) {
+
+            CPRow* returner = this->next;
+            this->next = (this->next)->next;
+            if (debug) {
+                printf("Successfully deleted row at hashtable index %i\n", index);
+            }
+            return returner;
+        }
+        this = this->next;
+    }
+    if (debug) {
+        printf("No matching row to delete in hashtable at index %i, returning null\n", index);
+    }
+    return NULL;
 }
