@@ -38,7 +38,7 @@ typedef struct CDHRow{
 } CDHRow;
 
 typedef struct CRRow{
-    char* name;//primary key
+    char* course;//primary key
     char* room;
     struct CRRow* next;
 } CRRow;
