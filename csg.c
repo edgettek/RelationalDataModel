@@ -199,6 +199,7 @@ void printCSGRelation(C_S_G_Row* table[], bool debug) {
 
 int main(int argc, char const *argv[])
 {
+
 	// 1) CSG
 	C_S_G_Row* CSGtable[TABLE_SIZE];
 	for (int i = 0; i < TABLE_SIZE; i++) {
@@ -235,11 +236,11 @@ int main(int argc, char const *argv[])
     SNAPRow* SNAPtable[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {
         SNAPtable[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
-//		SNAPtable[i]->name=NULL;
-//		SNAPtable[i]->StudentId=NULL;
+		SNAPtable[i]->name=NULL;
+		SNAPtable[i]->StudentId;
 		SNAPtable[i]->next = NULL;
-//		SNAPtable[i]->address = NULL;
-//		SNAPtable[i]->phone = NULL;
+		SNAPtable[i]->address = (char*) malloc(sizeof(char*));
+		SNAPtable[i]->phone = NULL;
     }
     SNAPRow snapRow;
 	snapRow.name = "C. Brown";
@@ -252,7 +253,7 @@ int main(int argc, char const *argv[])
 	SNAPRow row2;
 	row2.name = "Raina Langevin";
 	row2.StudentId = 12345;
-	strcpy(row2.address, "Burlington Street, Burlington, VT");
+	row2.address = "Burlington Street, Burlington, VT";
 	row2.phone = "555-3334";
 	for(int i = 0; i<2; i++){
 		insertSNAP(row2, SNAPtable, true);

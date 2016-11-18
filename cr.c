@@ -18,7 +18,7 @@ void insertCR(CRRow row, CRRow* table[], bool debug){
     }
 
     CRRow* newer = (CRRow*) malloc(sizeof(CRRow));
-    if (strcmp(this->course, "") != 0) {
+    if (this->course == NULL) {
         this->next = newer;
         this = newer;
     }
@@ -36,6 +36,11 @@ CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
     int index = hashOneString(row.course, 6, TABLE_SIZE);
 
     CRRow* this = table[index];
+
+    if(this->course == NULL) {
+        return NULL;
+    }
+
     while ((this->next) != NULL) {
         if (strcmp(this->course, row.course) == 0 && strcmp(this->room, row.room) == 0){
             if (debug) {

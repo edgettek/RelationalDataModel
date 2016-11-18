@@ -19,7 +19,7 @@ void insertCP(CPRow row, CPRow* table[], bool debug){
 
     CPRow* newer = (CPRow*) malloc(sizeof(CPRow));
 
-    if (strcmp(this->course, "") != 0) {
+    if (this->course == NULL) {
         this->next = newer;
         this = newer;
     }
@@ -35,7 +35,14 @@ void insertCP(CPRow row, CPRow* table[], bool debug){
 CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
     int index = hashOneString(row.course, 6, TABLE_SIZE);
 
+
     CPRow* this = table[index];
+
+    if(this->course == NULL) {
+        return NULL;
+    }
+
+
     while ((this->next) != NULL) {
         if (strcmp(this->course, row.course) == 0 && strcmp(this->prereq, row.prereq) == 0){
             if (debug) {

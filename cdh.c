@@ -18,7 +18,7 @@ void insertCDH(CDHRow row, CDHRow* table[], bool debug){
 
     CDHRow* newer = (CDHRow*) malloc(sizeof(CDHRow));
 
-    if (strcmp(this->course, "") != 0) {
+    if (this->course == NULL) {
         this->next = newer;
         this = newer;
     }
@@ -36,6 +36,11 @@ CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
     int index = hashTwoStrings(row.course, 6, row.day, 6, TABLE_SIZE);
 
     CDHRow* this = table[index];
+
+    if(this->course == NULL) {
+        return NULL;
+    }
+
     while ((this->next) != NULL) {
         if (strcmp(this->course, row.course) == 0 && strcmp(this->day, row.day) == 0 && strcmp(this->hour, row.hour) == 0){
             if (debug) {

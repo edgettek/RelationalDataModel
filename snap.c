@@ -26,7 +26,7 @@ void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug) {
 
         SNAPRow *newer = (SNAPRow *) malloc(sizeof(SNAPRow));
 
-        if (strcmp(this->name, "") != 0) {
+        if (this->name == NULL) {
             this->next = newer;
             this = newer;
         }
@@ -44,6 +44,11 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
     int index = hashInt(row.StudentId, TABLE_SIZE);
 
     SNAPRow* this = table[index];
+
+    if(this->name == NULL) {
+        return NULL;
+    }
+
     while ((this->next) != NULL) {
         if (strcmp(this->StudentId, row.StudentId) == 0 && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0){
             if (debug) {
@@ -54,6 +59,8 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
         }
         this = this->next;
     }
+
+
 
     if(strcmp(this->StudentId, row.StudentId) == 0 && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0) {
         if (debug) {
