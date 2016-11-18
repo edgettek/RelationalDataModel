@@ -18,8 +18,11 @@ void insertCP(CPRow row, CPRow* table[], bool debug){
     }
 
     CPRow* newer = (CPRow*) malloc(sizeof(CPRow));
-    this->next = newer;
-    this = newer;
+
+    if (strcmp(this->course, "") != 0) {
+        this->next = newer;
+        this = newer;
+    }
 
     memcpy(this, &row, sizeof(CPRow));
 

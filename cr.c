@@ -18,11 +18,10 @@ void insertCR(CRRow row, CRRow* table[], bool debug){
     }
 
     CRRow* newer = (CRRow*) malloc(sizeof(CRRow));
-    this->next = newer;
-    this = newer;
-    this->next = NULL;
-    newer->next = NULL;
-    row.next = NULL;
+    if (strcmp(this->course, "") != 0) {
+        this->next = newer;
+        this = newer;
+    }
 
 
     memcpy(this, &row, sizeof(CRRow));

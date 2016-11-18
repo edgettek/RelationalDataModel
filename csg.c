@@ -63,7 +63,7 @@ void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 
 	C_S_G_Row* newer = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
 
-	if (strcmp(this->Course, "\0") != 0) {
+	if (strcmp(this->Course, "") != 0) {
 		this->next = newer;
 		this = newer;
 	}
