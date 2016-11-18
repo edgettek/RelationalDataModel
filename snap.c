@@ -19,11 +19,10 @@ void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug) {
     }
 
     SNAPRow* newer = (SNAPRow*) malloc(sizeof(SNAPRow));
-    this->next = newer;
-    this = newer;
-    this->next = NULL;
-    newer->next = NULL;
-    row.next = NULL;
+    if (strcmp(this->name, "") != 0) {
+        this->next = newer;
+        this = newer;
+    }
 
     memcpy(this, &row, sizeof(SNAPRow));
 

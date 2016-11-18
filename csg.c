@@ -54,7 +54,6 @@ int hashOneString(char str[], int strSize, int hashPrime){
 }
 
 
-
 C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
 	C_S_G_Row* this = table[index];

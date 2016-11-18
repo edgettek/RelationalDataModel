@@ -17,11 +17,11 @@ void insertCDH(CDHRow row, CDHRow* table[], bool debug){
     }
 
     CDHRow* newer = (CDHRow*) malloc(sizeof(CDHRow));
-    this->next = newer;
-    this = newer;
-    this->next = NULL;
-    newer->next = NULL;
-    row.next = NULL;
+
+    if (strcmp(this->course, "") != 0) {
+        this->next = newer;
+        this = newer;
+    }
 
 
     memcpy(this, &row, sizeof(CDHRow));
