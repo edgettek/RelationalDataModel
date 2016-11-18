@@ -37,7 +37,7 @@ CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
 
     CPRow* this = table[index];
     while ((this->next) != NULL) {
-        if (this->course == row.course){
+        if (strcmp(this->course, row.course) == 0 && strcmp(this->prereq, row.prereq) == 0){
             if (debug) {
                 printf("Successfully found matching row at hashtable index %i\n", index);
             }
@@ -45,6 +45,15 @@ CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
         }
         this = this->next;
     }
+
+    if(strcmp(this->course, row.course) == 0 && strcmp(this->prereq, row.prereq) == 0) {
+        if (debug) {
+            printf("Successfully found matching row at hashtable index %i\n", index);
+        }
+        return this;
+    }
+
+
     if (this->course == row.course) {
         if (debug) {
             printf("Successfully found matching row at hashtable index %i\n", index);

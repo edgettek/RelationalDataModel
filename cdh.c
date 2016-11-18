@@ -37,7 +37,7 @@ CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
 
     CDHRow* this = table[index];
     while ((this->next) != NULL) {
-        if (this->course == row.course && row.day == this->day){
+        if (strcmp(this->course, row.course) == 0 && strcmp(this->day, row.day) == 0 && strcmp(this->hour, row.hour) == 0){
             if (debug) {
                 printf("Successfully found matching row at hashtable index %i\n", index);
             }
@@ -45,6 +45,15 @@ CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
         }
         this = this->next;
     }
+
+    if(strcmp(this->course, row.course) == 0 && strcmp(this->day, row.day) == 0 && strcmp(this->hour, row.hour) == 0) {
+        if (debug) {
+            printf("Successfully found matching row at hashtable index %i\n", index);
+        }
+        return this;
+    }
+
+
     if (this->course == row.course && this->day == row.day) {
         if (debug) {
             printf("Successfully found matching row at hashtable index %i\n", index);

@@ -231,89 +231,89 @@ int main(int argc, char const *argv[])
 
 
 
-//	// 2) SNAP
-//    SNAPRow* SNAPtable[TABLE_SIZE];
-//    for (int i = 0; i < TABLE_SIZE; i++) {
-//        SNAPtable[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
+	// 2) SNAP
+    SNAPRow* SNAPtable[TABLE_SIZE];
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        SNAPtable[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
 //		SNAPtable[i]->name=NULL;
 //		SNAPtable[i]->StudentId=NULL;
-//		SNAPtable[i]->next = NULL;
+		SNAPtable[i]->next = NULL;
 //		SNAPtable[i]->address = NULL;
 //		SNAPtable[i]->phone = NULL;
-//    }
-//    SNAPRow snapRow;
-//	snapRow.name = "C. Brown";
-//    snapRow.StudentId = 28890;
-//    strcpy(snapRow.address, "12 Apple St.");
-//	snapRow.phone = "555-1234";
-//
-//	insertSNAP(snapRow, SNAPtable, true);
-//
-//	SNAPRow row2;
-//	row2.name = "Raina Langevin";
-//	row2.StudentId = 12345;
-//	strcpy(row2.address, "Burlington Street, Burlington, VT");
-//	row2.phone = "555-3334";
-//	for(int i = 0; i<2; i++){
-//		insertSNAP(row2, SNAPtable, true);
-//	}
-//
-//	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
-//	thisRow = lookupSNAP(row2, SNAPtable, true);
-//	for (int i = 0; i < 6; i++) {
-//		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
-//	}
+    }
+    SNAPRow snapRow;
+	snapRow.name = "C. Brown";
+    snapRow.StudentId = 28890;
+    strcpy(snapRow.address, "12 Apple St.");
+	snapRow.phone = "555-1234";
 
-	// 3) CP
-//	CPRow* CPtable[TABLE_SIZE];
-//
-//	for(int i = 0;i<TABLE_SIZE; i++){
-//		CPtable[i] = (CPRow*)malloc(sizeof(CPRow));
-//		CPtable[i]->next = NULL;
-//		CPtable[i]->course = NULL;
-//		CPtable[i]->prereq = NULL;
-//	}
-//	CPRow cpRow;
-//	cpRow.course = "CS101";
-//	cpRow.prereq = "CS100";
-//
-//	insertCP(cpRow, CPtable, true);
-//	CPRow cpRow2;
-//	cpRow2.course = "EE200";
-//	cpRow2.prereq = "EE005";
-//
-//	insertCP(cpRow2, CPtable, true);
-//	CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
-//	CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
-//
-//	CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
-//
-//	return 0;
+	insertSNAP(snapRow, SNAPtable, true);
 
-	// 4) CDH
-//	CDHRow* CDHTable[TABLE_SIZE];
-//
-//
-//	for(int i = 0;i<TABLE_SIZE; i++){
-//		CDHTable[i] = (CDHRow*)malloc(sizeof(CDHRow));
-//		CDHTable[i]->next = NULL;
-//		CDHTable[i]->course = NULL;
-//		CDHTable[i]->day = NULL;
-//		CDHTable[i]->hour = NULL;
-//	}
-//	CDHRow cdhRow;
-//	cdhRow.course = "CS101";
-//	cdhRow.day = "M";
-//	cdhRow.hour = "9AM";
-//
-//	insertCDH(cdhRow, CDHTable, true);
-//	CDHRow cdhRow1;
-//	cdhRow1.course = "CSC101";
-//	cdhRow1.day = "W";
-//	cdhRow1.hour = "9AM";
-//
-//	insertCDH(cdhRow1, CDHTable, true);
-//
+	SNAPRow row2;
+	row2.name = "Raina Langevin";
+	row2.StudentId = 12345;
+	strcpy(row2.address, "Burlington Street, Burlington, VT");
+	row2.phone = "555-3334";
+	for(int i = 0; i<2; i++){
+		insertSNAP(row2, SNAPtable, true);
+	}
+
+	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
+	thisRow = lookupSNAP(row2, SNAPtable, true);
+	for (int i = 0; i < 6; i++) {
+		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
+	}
+
+	 //3) CP
+	CPRow* CPtable[TABLE_SIZE];
+
+	for(int i = 0;i<TABLE_SIZE; i++){
+		CPtable[i] = (CPRow*)malloc(sizeof(CPRow));
+		CPtable[i]->next = NULL;
+		CPtable[i]->course = NULL;
+		CPtable[i]->prereq = NULL;
+	}
+	CPRow cpRow;
+	cpRow.course = "CS101";
+	cpRow.prereq = "CS100";
+
+	insertCP(cpRow, CPtable, true);
+	CPRow cpRow2;
+	cpRow2.course = "EE200";
+	cpRow2.prereq = "EE005";
+
+	insertCP(cpRow2, CPtable, true);
+	CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
+	CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
+
+	CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
+
+
+	 //4) CDH
+
+	CDHRow* CDHTable[TABLE_SIZE];
+
+
+	for(int i = 0;i<TABLE_SIZE; i++){
+		CDHTable[i] = (CDHRow*)malloc(sizeof(CDHRow));
+		CDHTable[i]->next = NULL;
+		CDHTable[i]->course = NULL;
+		CDHTable[i]->day = NULL;
+		CDHTable[i]->hour = NULL;
+	}
+	CDHRow cdhRow;
+	cdhRow.course = "CS101";
+	cdhRow.day = "M";
+	cdhRow.hour = "9AM";
+
+	insertCDH(cdhRow, CDHTable, true);
+	CDHRow cdhRow1;
+	cdhRow1.course = "CSC101";
+	cdhRow1.day = "W";
+	cdhRow1.hour = "9AM";
+
+	insertCDH(cdhRow1, CDHTable, true);
+
 //	CDHRow* current;
 //
 //	for(int i = 0; i < TABLE_SIZE; i++) {
@@ -321,12 +321,12 @@ int main(int argc, char const *argv[])
 //
 //		printf("i == %d: Course == %s Day == %s Hour == %s\n", i, current->course, current->day, current->hour);
 //	}
-//
-//
-//	CDHRow* findCDHRow1 = lookupCDH(cdhRow, CDHTable, true);
-//	CDHRow* findCDHRow2 = lookupCDH(cdhRow1, CDHTable, true);
-//
-//	CDHRow* deletedCDH = deleteCDH(cdhRow, CDHTable, true);
+
+
+	CDHRow* findCDHRow1 = lookupCDH(cdhRow, CDHTable, true);
+	CDHRow* findCDHRow2 = lookupCDH(cdhRow1, CDHTable, true);
+
+	CDHRow* deletedCDH = deleteCDH(cdhRow, CDHTable, true);
 
 	return 0;
 

@@ -12,24 +12,32 @@
 void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug) {
     int index = hashInt(row.StudentId, TABLE_SIZE);
 
-    SNAPRow* this = table[index];
-
-    while ((this->next) != NULL ){
-        this = this->next;
+    if(lookupSNAP(row, table, false) != NULL) {
+        if(debug) {printf("That row already existed!\n");}
+        return;
     }
+    else {
 
-    SNAPRow* newer = (SNAPRow*) malloc(sizeof(SNAPRow));
-    if (strcmp(this->name, "") != 0) {
-        this->next = newer;
-        this = newer;
+        SNAPRow *this = table[index];
+
+        while ((this->next) != NULL) {
+            this = this->next;
+        }
+
+        SNAPRow *newer = (SNAPRow *) malloc(sizeof(SNAPRow));
+
+        if (strcmp(this->name, "") != 0) {
+            this->next = newer;
+            this = newer;
+        }
+
+        memcpy(this, &row, sizeof(SNAPRow));
+
+        if (debug) {
+            printf("Successfully inserted new row at hashtable index %i\n", index);
+        }
+        return;
     }
-
-    memcpy(this, &row, sizeof(SNAPRow));
-
-    if (debug) {
-        printf("Successfully inserted new row at hashtable index %i\n", index);
-    }
-    return;
 }
 
 SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
@@ -37,7 +45,7 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
 
     SNAPRow* this = table[index];
     while ((this->next) != NULL) {
-        if (this->StudentId == row.StudentId){
+        if (strcmp(this->StudentId, row.StudentId) == 0 && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0){
             if (debug) {
                 printf("Successfully found matching row at hashtable index %i\n", index);
                 printf("name is %s\n", this->name);
@@ -46,6 +54,14 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
         }
         this = this->next;
     }
+
+    if(strcmp(this->StudentId, row.StudentId) == 0 && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0) {
+        if (debug) {
+            printf("Successfully found matching row at hashtable index %i\n", index);
+        }
+        return this;
+    }
+
     if (this->StudentId == row.StudentId) {
         if (debug) {
             printf("Successfully found matching row at hashtable index %i\n", index);

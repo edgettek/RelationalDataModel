@@ -37,7 +37,7 @@ CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
 
     CRRow* this = table[index];
     while ((this->next) != NULL) {
-        if (this->course == row.course && row.room == this->room){
+        if (strcmp(this->course, row.course) == 0 && strcmp(this->room, row.room) == 0){
             if (debug) {
                 printf("Successfully found matching row at hashtable index %i\n", index);
             }
@@ -45,6 +45,15 @@ CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
         }
         this = this->next;
     }
+
+    if(strcmp(this->course, row.course) == 0 && strcmp(this->room, row.room) == 0) {
+        if (debug) {
+            printf("Successfully found matching row at hashtable index %i\n", index);
+        }
+        return this;
+    }
+
+
     if (this->course == row.course && this->room == row.room) {
         if (debug) {
             printf("Successfully found matching row at hashtable index %i\n", index);
