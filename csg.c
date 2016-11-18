@@ -53,28 +53,7 @@ int hashOneString(char str[], int strSize, int hashPrime){
 	return returner;
 }
 
-void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
-	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
 
-	C_S_G_Row* this = table[index];
-	while ((this->next) != NULL) {
-		this = this->next;
-	}
-
-	C_S_G_Row* newer = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
-
-	if (strcmp(this->Course, "\0") != 0) {
-		this->next = newer;
-		this = newer;
-	}
-
-	memcpy(this, &row, sizeof(C_S_G_Row));
-
-	if (debug) {
-		printf("Successfully inserted new row at hashtable index %i\n", index);
-	}
-	return;
-}
 
 C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
@@ -85,12 +64,21 @@ C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 			strcmp(this->Grade, row.Grade) == 0) {
 			if (debug) {
 				printf("Successfully found matching row at hashtable index %i\n", index);
-				printf("course  %s\n", this->Course);
 			}
 			return this;
 		}
 		this = this->next;
 	}
+
+
+	if (strcmp(this->Course, row.Course) == 0 && this->StudentId == row.StudentId && strcmp(this->Grade, row.Grade) == 0) {
+		if (debug) {
+			printf("Successfully found matching row at hashtable index %i\n", index);
+		}
+		return this;
+
+	}
+
 	if (this->Course == row.Course && this->StudentId == row.StudentId && this->Grade == row.Grade) {
 		if (debug) {
 			printf("Successfully found matching row at hashtable index %i\n", index);
@@ -101,6 +89,36 @@ C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 			printf("Could not find matching row at hashtable index %i, returning null\n", index);
 		}
 		return NULL;
+	}
+}
+
+void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
+	int index = hashIntAndString(row.Course, 6, row.StudentId, TABLE_SIZE);
+
+	if(lookupCSG(row, table, false) != NULL) {
+		if(debug) {printf("That row already existed!\n");}
+		return;
+	}
+	else {
+
+		C_S_G_Row *this = table[index];
+		while ((this->next) != NULL) {
+			this = this->next;
+		}
+
+		C_S_G_Row *newer = (C_S_G_Row *) malloc(sizeof(C_S_G_Row));
+
+		if (strcmp(this->Course, "") != 0) {
+			this->next = newer;
+			this = newer;
+		}
+
+		memcpy(this, &row, sizeof(C_S_G_Row));
+
+		if (debug) {
+			printf("Successfully inserted new row at hashtable index %i\n", index);
+		}
+		return;
 	}
 }
 
@@ -183,27 +201,34 @@ void printCSGRelation(C_S_G_Row* table[], bool debug) {
 int main(int argc, char const *argv[])
 {
 	// 1) CSG
-//	C_S_G_Row* CSGtable[TABLE_SIZE];
-//	for (int i = 0; i < TABLE_SIZE; i++) {
-//		CSGtable[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
-//		CSGtable[i]->next = NULL;
-//	}
-//	C_S_G_Row test;
-//	strcpy(test.Course, "CS10101010");
-//	test.StudentId = 12345;
-//	strcpy(test.Grade, "A+");
-//	for (int i = 0; i < 3; i++) {
-//		insertCSG(test, CSGtable, true);
-//	}
-//
-//	printf("IN MAIN: at 553 Course: %s StudentID: %d Grade: %s\n", CSGtable[553]->Course, CSGtable[553]->StudentId, CSGtable[553]->Grade);
-//
-//	printCSGRelation(CSGtable, true);
-//
-//	C_S_G_Row* lookedup = lookupCSG(test, CSGtable, true);
-//	for (int i = 0; i < 6; i++) {
-//		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
-//	}
+	C_S_G_Row* CSGtable[TABLE_SIZE];
+	for (int i = 0; i < TABLE_SIZE; i++) {
+		CSGtable[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+		CSGtable[i]->next = NULL;
+	}
+	C_S_G_Row test;
+	strcpy(test.Course, "CS101");
+	test.StudentId = 12345;
+	strcpy(test.Grade, "A+");
+	for (int i = 0; i < 3; i++) {
+		insertCSG(test, CSGtable, true);
+	}
+
+	C_S_G_Row* current;
+
+	for(int i = 0; i < TABLE_SIZE; i++) {
+		current = CSGtable[i];
+
+		printf("i == %d: Course == %s StudentID == %d Grade == %s\n", i, current->Course, current->StudentId, current->Grade);
+	}
+
+
+	//printCSGRelation(CSGtable, true);
+
+	C_S_G_Row* lookedup = lookupCSG(test, CSGtable, true);
+	for (int i = 0; i < 6; i++) {
+		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
+	}
 
 
 
@@ -267,42 +292,42 @@ int main(int argc, char const *argv[])
 //	return 0;
 
 	// 4) CDH
-	CDHRow* CDHTable[TABLE_SIZE];
-
-
-	for(int i = 0;i<TABLE_SIZE; i++){
-		CDHTable[i] = (CDHRow*)malloc(sizeof(CDHRow));
-		CDHTable[i]->next = NULL;
-		CDHTable[i]->course = NULL;
-		CDHTable[i]->day = NULL;
-		CDHTable[i]->hour = NULL;
-	}
-	CDHRow cdhRow;
-	cdhRow.course = "CS101";
-	cdhRow.day = "M";
-	cdhRow.hour = "9AM";
-
-	insertCDH(cdhRow, CDHTable, true);
-	CDHRow cdhRow1;
-	cdhRow1.course = "CSC101";
-	cdhRow1.day = "W";
-	cdhRow1.hour = "9AM";
-
-	insertCDH(cdhRow1, CDHTable, true);
-
-	CDHRow* current;
-
-	for(int i = 0; i < TABLE_SIZE; i++) {
-		current = CDHTable[i];
-
-		printf("i == %d: Course == %s Day == %s Hour == %s\n", i, current->course, current->day, current->hour);
-	}
-
-
-	CDHRow* findCDHRow1 = lookupCDH(cdhRow, CDHTable, true);
-	CDHRow* findCDHRow2 = lookupCDH(cdhRow1, CDHTable, true);
-
-	CDHRow* deletedCDH = deleteCDH(cdhRow, CDHTable, true);
+//	CDHRow* CDHTable[TABLE_SIZE];
+//
+//
+//	for(int i = 0;i<TABLE_SIZE; i++){
+//		CDHTable[i] = (CDHRow*)malloc(sizeof(CDHRow));
+//		CDHTable[i]->next = NULL;
+//		CDHTable[i]->course = NULL;
+//		CDHTable[i]->day = NULL;
+//		CDHTable[i]->hour = NULL;
+//	}
+//	CDHRow cdhRow;
+//	cdhRow.course = "CS101";
+//	cdhRow.day = "M";
+//	cdhRow.hour = "9AM";
+//
+//	insertCDH(cdhRow, CDHTable, true);
+//	CDHRow cdhRow1;
+//	cdhRow1.course = "CSC101";
+//	cdhRow1.day = "W";
+//	cdhRow1.hour = "9AM";
+//
+//	insertCDH(cdhRow1, CDHTable, true);
+//
+//	CDHRow* current;
+//
+//	for(int i = 0; i < TABLE_SIZE; i++) {
+//		current = CDHTable[i];
+//
+//		printf("i == %d: Course == %s Day == %s Hour == %s\n", i, current->course, current->day, current->hour);
+//	}
+//
+//
+//	CDHRow* findCDHRow1 = lookupCDH(cdhRow, CDHTable, true);
+//	CDHRow* findCDHRow2 = lookupCDH(cdhRow1, CDHTable, true);
+//
+//	CDHRow* deletedCDH = deleteCDH(cdhRow, CDHTable, true);
 
 	return 0;
 
