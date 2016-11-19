@@ -79,6 +79,10 @@ CPRow* deleteCP(CPRow row, CPRow* table[], bool debug){
 
     CPRow* this = table[index];
 
+    if(this->course == NULL) {
+        return NULL;
+    }
+
     if (this->course == row.course) {
         CPRow* returner = this->next;
         this->next = (this->next)->next;

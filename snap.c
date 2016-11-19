@@ -88,6 +88,10 @@ SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug){
 
     SNAPRow* this = table[index];
 
+    if(this->name == NULL) {
+        return NULL;
+    }
+
     if (this->StudentId == row.StudentId) {
         SNAPRow* returner = this->next;
         this->next = (this->next)->next;

@@ -77,6 +77,10 @@ CDHRow* deleteCDH(CDHRow row, CDHRow* table[], bool debug){
 
     CDHRow* this = table[index];
 
+    if(this->course == NULL) {
+        return NULL;
+    }
+
     if (this->course == row.course && this->day==row.day) {
         CDHRow* returner = this->next;
         this->next = (this->next)->next;

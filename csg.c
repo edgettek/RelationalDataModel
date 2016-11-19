@@ -230,8 +230,6 @@ int main(int argc, char const *argv[])
 		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
 	}
 
-
-
 	// 2) SNAP
     SNAPRow* SNAPtable[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {

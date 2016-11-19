@@ -77,6 +77,10 @@ CRRow* deleteCR(CRRow row, CRRow* table[], bool debug){
 
     CRRow* this = table[index];
 
+    if(this->course == NULL) {
+        return NULL;
+    }
+
     if (this->course == row.course && this->room==row.room) {
         CRRow* returner = this->next;
         this->next = (this->next)->next;
