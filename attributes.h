@@ -70,9 +70,15 @@ extern int projectSId(SNAPRow* thisRow);
 extern void insertCR(CRRow row, CRRow* table[], bool debug);
 extern CRRow* lookupCR(CRRow row, CRRow* table[], bool debug);
 extern CRRow* deleteCR(CRRow row, CRRow* table[], bool debug);
-extern C_S_G_Row* selectCSGById(int id, char* course, C_S_G_Row* table[], bool debug);
+extern C_S_G_Row* selectCSGByIdAndCourse(int id, char* course, C_S_G_Row* table[], bool debug);
 
 extern char* projectGrade(C_S_G_Row* row);
+extern char* getGradeByName(char* name, char* course, SNAPRow* snapTable[], C_S_G_Row* csgTable[]);
+extern int projectId(SNAPRow* row);
 
+extern C_S_G_Row* selectCoursesById(C_S_G_Row* csgTable[], int studentId);
+extern CDHRow* selectCDHByCourseAndDay(CDHRow* cdhTable[], char* course, char* day);
+
+extern CRRow* selectCRByCourse(CRRow* crTable, char* course);
 
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H

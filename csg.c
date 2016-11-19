@@ -206,7 +206,7 @@ int main(int argc, char const *argv[])
 	}
 	C_S_G_Row test;
 
-	strcpy(test.course, "CS10101010");
+	strcpy(test.course, "CS101");
 	test.StudentId = 12345;
 	strcpy(test.grade, "A+");
 	for (int i = 0; i < 3; i++) {
@@ -215,10 +215,7 @@ int main(int argc, char const *argv[])
 
 	printf("IN MAIN: at 553 Course: %s StudentID: %d Grade: %s\n", CSGtable[553]->course, CSGtable[553]->StudentId, CSGtable[553]->grade);
 
-	//printCSGRelation(CSGtable, true);
 	C_S_G_Row* current;
-
-
 	for(int i = 0; i < TABLE_SIZE; i++) {
 		current = CSGtable[i]->next;
 		if(current!=NULL){
@@ -226,11 +223,13 @@ int main(int argc, char const *argv[])
 
 		}
 	}
-
 	C_S_G_Row* lookedup = lookupCSG(test, CSGtable, true);
-	for (int i = 0; i < 6; i++) {
-		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
-	}
+//	for (int i = 0; i < 6; i++) {
+//		C_S_G_Row* returned = deleteCSG(test, CSGtable, true);
+//	}
+
+
+
 
 	// 2) SNAP
     SNAPRow* SNAPtable[TABLE_SIZE];
@@ -243,8 +242,8 @@ int main(int argc, char const *argv[])
 		SNAPtable[i]->phone = NULL;
     }
     SNAPRow snapRow;
-	snapRow.name = "C. Brown";
-    snapRow.StudentId = 28890;
+	snapRow.name = "C.Brown";
+    snapRow.StudentId = 12345;
 	snapRow.address = "12 Apple St.";
 	snapRow.phone = "555-1234";
 
@@ -252,7 +251,7 @@ int main(int argc, char const *argv[])
 
 	SNAPRow row2;
 	row2.name = "Raina Langevin";
-	row2.StudentId = 12345;
+	row2.StudentId = 12335;
 	row2.address = "Burlington Street, Burlington, VT";
 	row2.phone = "555-3334";
 	for(int i = 0; i<2; i++){
@@ -261,9 +260,9 @@ int main(int argc, char const *argv[])
 
 	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
 	thisRow = lookupSNAP(row2, SNAPtable, true);
-	for (int i = 0; i < 6; i++) {
-		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
-	}
+//	for (int i = 0; i < 6; i++) {
+//		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
+//	}
 
 	 //3) CP
 	CPRow* CPtable[TABLE_SIZE];
@@ -386,6 +385,11 @@ int main(int argc, char const *argv[])
 //	CRRow* findCRRow2 = lookupCR(crRow2, CRTable, true);
 //	CRRow* deleteCRRow = deleteCR(crRow, CRTable, true);
 
+
+
+	//PART 2 TEST
+	char* grade = getGradeByName("C.Brown", "CS101", SNAPtable, CSGtable);
+	printf("grade: %s ", grade);
 
 }
 
