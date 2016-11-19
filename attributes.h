@@ -56,6 +56,7 @@ extern int hashOneString(char str[], int strSize, int hashPrime);
 extern void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug);
+extern C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
 
 extern void insertCP(CPRow row, CPRow* table[], bool debug);
 extern CPRow* deleteCP(CPRow row, CPRow* table[], bool debug);
@@ -63,13 +64,15 @@ extern CPRow* lookupCP(CPRow row, CPRow* table[], bool debug);
 extern void insertCDH(CDHRow row, CDHRow* table[], bool debug);
 extern CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug);
 extern CDHRow* deleteCDH(CDHRow row, CDHRow* table[], bool debug);
+extern SNAPRow* selectSNAPByName(char* name, SNAPRow* table[]);
+extern int projectSId(SNAPRow* thisRow);
 
 extern void insertCR(CRRow row, CRRow* table[], bool debug);
-CRRow* lookupCR(CRRow row, CRRow* table[], bool debug);
-CRRow* deleteCR(CRRow row, CRRow* table[], bool debug);
+extern CRRow* lookupCR(CRRow row, CRRow* table[], bool debug);
+extern CRRow* deleteCR(CRRow row, CRRow* table[], bool debug);
+extern C_S_G_Row* selectCSGById(int id, char* course, C_S_G_Row* table[], bool debug);
 
-
-
+extern char* projectGrade(C_S_G_Row* row);
 
 
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H
