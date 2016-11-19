@@ -79,6 +79,6 @@ extern int projectId(SNAPRow* row);
 extern C_S_G_Row* selectCoursesById(C_S_G_Row* csgTable[], int studentId);
 extern CDHRow* selectCDHByCourseAndDay(CDHRow* cdhTable[], char* course, char* day);
 
-extern CRRow* selectCRByCourse(CRRow* crTable, char* course);
+extern CRRow* selectCRByCourse(CRRow* crTable[], char* course);
 
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H

@@ -126,42 +126,33 @@ CDHRow* selectCDHByCourse(CDHRow* cdhTable[], char* course, char* day){
     }
 }
 
-CRRow* selectCRByCourse(CRRow* crTable, char* course){
-    int index = hashOneString(row.course, 6, TABLE_SIZE);
+CRRow* selectCRByCourse(CRRow* crTable[], char* course){
+    int index = hashOneString(course, 6, TABLE_SIZE);
 
-    CRRow* this = table[index];
+    CRRow* this = crTable[index];
 
     if(this->course == NULL) {
         return NULL;
     }
 
     while ((this->next) != NULL) {
-        if (strcmp(this->course, row.course) == 0 && strcmp(this->room, row.room) == 0){
-            if (debug) {
-                printf("Successfully found matching row at hashtable index %i\n", index);
-            }
+        if (strcmp(this->course, course) == 0){
+
             return this;
         }
         this = this->next;
     }
 
-    if(strcmp(this->course, row.course) == 0 && strcmp(this->room, row.room) == 0) {
-        if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
-        }
+    if(strcmp(this->course, course) == 0 ) {
+
         return this;
     }
 
+    if (this->course == course) {
 
-    if (this->course == row.course && this->room == row.room) {
-        if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
-        }
         return this;
     } else {
-        if (debug) {
-            printf("Could not find matching row at hashtable index %i, returning null\n", index);
-        }
+
         return NULL;
     }
 }

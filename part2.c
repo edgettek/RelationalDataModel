@@ -18,10 +18,15 @@ char* getGradeByName(char* name, char* course, SNAPRow* snapTable[], C_S_G_Row* 
 
 char* getRoom(char*name, char* time, char* day, C_S_G_Row* csgTable[], CRRow* crTable[], SNAPRow* snapTable[], CDHRow* cdhTable[]){
     SNAPRow* row = selectSNAPByName(name, snapTable);
+
     int studentId = projectId(row);
+
     C_S_G_Row* csgRow = selectCoursesById(csgTable, studentId);
+
     C_S_G_Row*tempRow;
+
     tempRow->next = csgRow;
+    
     while(tempRow->next!=NULL){
         tempRow = tempRow->next;
         char* course = tempRow->course;
@@ -31,5 +36,6 @@ char* getRoom(char*name, char* time, char* day, C_S_G_Row* csgTable[], CRRow* cr
             return crRow->room;
         }
     }
+    return NULL;
 }
 
