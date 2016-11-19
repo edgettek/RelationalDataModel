@@ -10,9 +10,9 @@
 extern int TABLE_SIZE;
 
 typedef struct C_S_G_Row{
-    char Course[6]; // These two rows combine
+    char course[6]; // These two rows combine
     int StudentId;	// to make the primary key
-    char Grade[3];
+    char grade[3];
     struct C_S_G_Row* next;
 } C_S_G_Row;
 
@@ -64,6 +64,9 @@ extern void insertCDH(CDHRow row, CDHRow* table[], bool debug);
 extern CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug);
 extern CDHRow* deleteCDH(CDHRow row, CDHRow* table[], bool debug);
 
+extern void insertCR(CRRow row, CRRow* table[], bool debug);
+CRRow* lookupCR(CRRow row, CRRow* table[], bool debug);
+CRRow* deleteCR(CRRow row, CRRow* table[], bool debug);
 
 
 

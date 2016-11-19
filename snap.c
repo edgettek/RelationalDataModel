@@ -101,7 +101,7 @@ SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug){
         return returner;
     }
 
-    while ((this->next) != NULL) {
+    while ((this->next) != NULL && (this->next)) {
         if ((this->next)->StudentId == row.StudentId){
 
             SNAPRow* returner = this->next;
