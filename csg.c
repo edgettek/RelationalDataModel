@@ -68,7 +68,6 @@ C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 		this = this->next;
 	}
 
-
 	if (strcmp(this->course, row.course) == 0 && this->StudentId == row.StudentId && strcmp(this->grade, row.grade) == 0) {
 		if (debug) {
 			printf("Successfully found matching row at hashtable index %i\n", index);
@@ -389,9 +388,5 @@ int main(int argc, char const *argv[])
 
 
 }
-
-
-
-
 
 
