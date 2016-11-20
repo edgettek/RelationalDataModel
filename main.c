@@ -288,13 +288,16 @@ int main(int argc, char const *argv[])
     lookCR = lookupCR(crRow, CRTable, true);
     deleteCRTest = deleteCR(crRow, CRTable, true);
 
-    printf("\n\n *** END OF PROGRAM ***\n");
 
-    return 0;
+
 
 
     //PART 2 TEST
     char* grade = getGradeByName("C.Brown", "CS101", SNAPtable, CSGtable);
     printf("grade: %s ", grade);
+
+    return 0;
+
+    printf("\n\n *** END OF PROGRAM ***\n");
 
 }

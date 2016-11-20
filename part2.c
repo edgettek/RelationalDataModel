@@ -10,6 +10,10 @@
 
 char* getGradeByName(char* name, char* course, SNAPRow* snapTable[], C_S_G_Row* csgTable[]){
     SNAPRow* thisRow = selectSNAPByName(name, snapTable);
+    if(thisRow==NULL){
+        printf("NOT FOUND\n");
+        return NULL;
+    }
     int studentId = projectId(thisRow);
     C_S_G_Row* row = selectCSGByIdAndCourse(studentId, course, csgTable, true);
     char* grade = projectGrade(row);
