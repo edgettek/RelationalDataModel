@@ -13,12 +13,12 @@ void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug) {
     int index = hashInt(row.StudentId, TABLE_SIZE);
 
     if(lookupSNAP(row, table, false) != NULL) {
-        if(debug) {printf("That row already existed!\n");}
+        if(debug) {printf("Tuple (%d, %s, %s, %s) in SNAP was already existed at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);}
         return;
     }
     else {
 
-        SNAPRow *this = table[index];
+        SNAPRow* this = table[index];
 
         while ((this->next) != NULL) {
             this = this->next;
@@ -26,15 +26,17 @@ void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug) {
 
         SNAPRow *newer = (SNAPRow *) malloc(sizeof(SNAPRow));
 
-        if (this->name == NULL) {
+        if (this->name != NULL) {
             this->next = newer;
             this = newer;
         }
 
         memcpy(this, &row, sizeof(SNAPRow));
 
+        SNAPRow* temp = table[index];
+
         if (debug) {
-            printf("Successfully inserted new row at hashtable index %i\n", index);
+            printf("Tuple (%d, %s, %s, %s) in SNAP was inserted at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
         }
         return;
     }
@@ -52,8 +54,7 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
     while ((this->next) != NULL) {
         if (strcmp(this->StudentId, row.StudentId) == 0 && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0){
             if (debug) {
-                printf("Successfully found matching row at hashtable index %i\n", index);
-                printf("name is %s\n", this->name);
+                printf("Tuple (%d, %s, %s, %s) in SNAP was found at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
             }
             return this;
         }
@@ -62,22 +63,21 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
 
 
 
-    if(strcmp(this->StudentId, row.StudentId) == 0 && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0) {
+    if(this->StudentId == row.StudentId && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("Tuple (%d, %s, %s, %s) in SNAP was found at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
         }
         return this;
     }
 
     if (this->StudentId == row.StudentId) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
-            printf("name is %s\n", this->name);
+            printf("Tuple (%d, %s, %s, %s) in SNAP was found at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
         }
         return this;
     } else {
         if (debug) {
-            printf("Could not find matching row at hashtable index %i, returning null\n", index);
+            printf("Tuple (%d, %s, %s, %s) in SNAP was NOT found at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
         }
         return NULL;
     }
@@ -86,6 +86,11 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
 SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug){
     int index = hashInt(row.StudentId, TABLE_SIZE);
 
+    if(lookupSNAP(row, table, false) == NULL) {
+        printf("Tuple (%d, %s, %s, %s) in SNAP was NOT deleted/found at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
+        return NULL;
+    }
+
     SNAPRow* this = table[index];
 
     if(this->name == NULL) {
@@ -93,28 +98,31 @@ SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug){
     }
 
     if (this->StudentId == row.StudentId) {
-        SNAPRow* returner = this->next;
-        this->next = (this->next)->next;
+
+        this->StudentId=0;
+        this->name = NULL;
+        this->address = NULL;
+        this->phone = NULL;
+
         if (debug) {
-            printf("Successfully deleted row at hashtable index %i\n", index);
+            printf("Tuple (%d, %s, %s, %s) in SNAP was deleted at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
         }
-        return returner;
+        return this;
     }
 
     while ((this->next) != NULL && (this->next)) {
         if ((this->next)->StudentId == row.StudentId){
 
             SNAPRow* returner = this->next;
-            this->next = (this->next)->next;
             if (debug) {
-                printf("Successfully deleted row at hashtable index %i\n", index);
+                printf("Tuple (%d, %s, %s, %s) in SNAP was deleted at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
             }
             return returner;
         }
         this = this->next;
     }
     if (debug) {
-        printf("No matching row to delete in hashtable at index %i, returning null\n", index);
+        printf("Tuple (%d, %s, %s, %s) in SNAP was NOT deleted/found at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
     }
     return NULL;
 }

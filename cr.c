@@ -11,25 +11,33 @@
 void insertCR(CRRow row, CRRow* table[], bool debug){
     int index = hashOneString(row.course, 6, TABLE_SIZE);
 
-    CRRow* this = table[index];
-
-    while ((this->next) != NULL) {
-        this = this->next;
+    if(lookupCR(row, table, false) != NULL) {
+        if(debug) {printf("Tuple (%s, %s) in CR already existed at index %d.\n", row.course, row.room, index);}
+        return;
     }
+    else {
 
-    CRRow* newer = (CRRow*) malloc(sizeof(CRRow));
-    if (this->course == NULL) {
-        this->next = newer;
-        this = newer;
+        CRRow *this = table[index];
+
+
+        while ((this->next) != NULL) {
+            this = this->next;
+        }
+
+        CRRow *newer = (CRRow *) malloc(sizeof(CRRow));
+        if (this->course == NULL) {
+            this->next = newer;
+            this = newer;
+        }
+
+
+        memcpy(this, &row, sizeof(CRRow));
+
+        if (debug) {
+            printf("Tuple (%s, %s) in CR was inserted at index %d.\n", row.course, row.room, index);
+        }
+        return;
     }
-
-
-    memcpy(this, &row, sizeof(CRRow));
-
-    if (debug) {
-        printf("Successfully inserted new row at hashtable index %i\n", index);
-    }
-    return;
 }
 
 CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
@@ -44,7 +52,7 @@ CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
     while ((this->next) != NULL) {
         if (strcmp(this->course, row.course) == 0 && strcmp(this->room, row.room) == 0){
             if (debug) {
-                printf("Successfully found matching row at hashtable index %i\n", index);
+                printf("Tuple (%s, %s) in CR was found at index %d.\n", row.course, row.room, index);
             }
             return this;
         }
@@ -53,7 +61,7 @@ CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
 
     if(strcmp(this->course, row.course) == 0 && strcmp(this->room, row.room) == 0) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s) in CR was found at index %d.\n", row.course, row.room, index);
         }
         return this;
     }
@@ -61,12 +69,12 @@ CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
 
     if (this->course == row.course && this->room == row.room) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s) in CR was found at index %d.\n", row.course, row.room, index);
         }
         return this;
     } else {
         if (debug) {
-            printf("Could not find matching row at hashtable index %i, returning null\n", index);
+            printf("Tuple (%s, %s) in CR was NOT found at index %d.\n", row.course, row.room, index);
         }
         return NULL;
     }
@@ -85,7 +93,7 @@ CRRow* deleteCR(CRRow row, CRRow* table[], bool debug){
         CRRow* returner = this->next;
         this->next = (this->next)->next;
         if (debug) {
-            printf("Successfully deleted row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s) in CR was deleted at index %d.\n", row.course, row.room, index);
         }
         return returner;
     }
@@ -96,7 +104,7 @@ CRRow* deleteCR(CRRow row, CRRow* table[], bool debug){
             CRRow *returner = this->next;
             this->next = (this->next)->next;
             if (debug) {
-                printf("Successfully deleted row at hashtable index %i\n", index);
+                printf("Tuple (%s, %s) in CR was deleted at index %d.\n", row.course, row.room, index);
             }
             return returner;
         }
@@ -106,7 +114,7 @@ CRRow* deleteCR(CRRow row, CRRow* table[], bool debug){
     }
 
     if (debug) {
-        printf("No matching row to delete in hashtable at index %i, returning null\n", index);
+        printf("Tuple (%s, %s) in CR was NOT found or deleted at index %d.\n", row.course, row.room, index);
     }
     return NULL;
 }

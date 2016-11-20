@@ -12,24 +12,32 @@ void insertCDH(CDHRow row, CDHRow* table[], bool debug){
 
     CDHRow* this = table[index];
 
-    while ((this->next) != NULL) {
-        this = this->next;
+    if(lookupCDH(row, table, false) != NULL) {
+        if(debug) {printf("Tuple (%s, %d, %s) already existed.\n", row.course, row.day, row.hour);}
+        return;
     }
+    else {
 
-    CDHRow* newer = (CDHRow*) malloc(sizeof(CDHRow));
+        while ((this->next) != NULL) {
+            this = this->next;
+        }
 
-    if (this->course == NULL) {
-        this->next = newer;
-        this = newer;
+        CDHRow* newer = (CDHRow*) malloc(sizeof(CDHRow));
+
+        if (this->course == NULL) {
+            this->next = newer;
+            this = newer;
+        }
+
+
+        memcpy(this, &row, sizeof(CDHRow));
+
+        if (debug) {
+            printf("Tuple (%s, %s, %s) in CDH was inserted at index %d.\n", row.course, row.day, row.hour, index);
+        }
+        return;
+
     }
-
-
-    memcpy(this, &row, sizeof(CDHRow));
-
-    if (debug) {
-        printf("Successfully inserted new row at hashtable index %i\n", index);
-    }
-    return;
 }
 
 CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
@@ -44,7 +52,7 @@ CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
     while ((this->next) != NULL) {
         if (strcmp(this->course, row.course) == 0 && strcmp(this->day, row.day) == 0 && strcmp(this->hour, row.hour) == 0){
             if (debug) {
-                printf("Successfully found matching row at hashtable index %i\n", index);
+                printf("Tuple (%s, %s, %s) in CDH was found at index %d.\n", row.course, row.day, row.hour, index);
             }
             return this;
         }
@@ -53,7 +61,7 @@ CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
 
     if(strcmp(this->course, row.course) == 0 && strcmp(this->day, row.day) == 0 && strcmp(this->hour, row.hour) == 0) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s, %s) in CDH was found at index %d.\n", row.course, row.day, row.hour, index);
         }
         return this;
     }
@@ -61,12 +69,12 @@ CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
 
     if (this->course == row.course && this->day == row.day) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s, %s) in CDH was found at index %d.\n", row.course, row.day, row.hour, index);
         }
         return this;
     } else {
         if (debug) {
-            printf("Could not find matching row at hashtable index %i, returning null\n", index);
+            printf("Tuple (%s, %s, %s) in CDH was found at index %d.\n", row.course, row.day, row.hour, index);
         }
         return NULL;
     }
@@ -85,7 +93,7 @@ CDHRow* deleteCDH(CDHRow row, CDHRow* table[], bool debug){
         CDHRow* returner = this->next;
         this->next = (this->next)->next;
         if (debug) {
-            printf("Successfully deleted row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s, %s) in CDH was deleted at index %d.\n", row.course, row.day, row.hour, index);
         }
         return returner;
     }
@@ -96,7 +104,7 @@ CDHRow* deleteCDH(CDHRow row, CDHRow* table[], bool debug){
                 CDHRow *returner = this->next;
                 this->next = (this->next)->next;
                 if (debug) {
-                    printf("Successfully deleted row at hashtable index %i\n", index);
+                    printf("Tuple (%s, %s, %s) in CDH was deleted at index %d.\n", row.course, row.day, row.hour, index);
                 }
                 return returner;
             }
@@ -106,7 +114,7 @@ CDHRow* deleteCDH(CDHRow row, CDHRow* table[], bool debug){
         }
 
     if (debug) {
-        printf("No matching row to delete in hashtable at index %i, returning null\n", index);
+        printf("Tuple (%s, %s, %s) in CDH was deleted at index %d.\n", row.course, row.day, row.hour, index);
     }
     return NULL;
 }

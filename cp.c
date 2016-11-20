@@ -11,25 +11,32 @@
 void insertCP(CPRow row, CPRow* table[], bool debug){
     int index = hashOneString(row.course, 6, TABLE_SIZE);
 
-    CPRow* this = table[index];
-
-    while ((this->next) != NULL) {
-        this = this->next;
+    if(lookupCP(row, table, false) != NULL) {
+        if(debug) {printf("Tuple (%s, %s) in CP already existed at index %d.\n", row.course, row.prereq, index);}
+        return;
     }
+    else {
 
-    CPRow* newer = (CPRow*) malloc(sizeof(CPRow));
+        CPRow *this = table[index];
 
-    if (this->course == NULL) {
-        this->next = newer;
-        this = newer;
+        while ((this->next) != NULL) {
+            this = this->next;
+        }
+
+        CPRow *newer = (CPRow *) malloc(sizeof(CPRow));
+
+        if (this->course != NULL) {
+            this->next = newer;
+            this = newer;
+        }
+
+        memcpy(this, &row, sizeof(CPRow));
+
+        if (debug) {
+            printf("Tuple (%s, %s) in CP was inserted at index %d.\n", row.course, row.prereq, index);
+        }
+        return;
     }
-
-    memcpy(this, &row, sizeof(CPRow));
-
-    if (debug) {
-        printf("Successfully inserted new row at hashtable index %i\n", index);
-    }
-    return;
 }
 
 CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
@@ -46,7 +53,7 @@ CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
     while ((this->next) != NULL) {
         if (strcmp(this->course, row.course) == 0 && strcmp(this->prereq, row.prereq) == 0){
             if (debug) {
-                printf("Successfully found matching row at hashtable index %i\n", index);
+                printf("Tuple (%s, %s) in CP was found at index %d.\n", row.course, row.prereq, index);
             }
             return this;
         }
@@ -55,7 +62,7 @@ CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
 
     if(strcmp(this->course, row.course) == 0 && strcmp(this->prereq, row.prereq) == 0) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s) in CP was found at index %d.\n", row.course, row.prereq, index);
         }
         return this;
     }
@@ -63,12 +70,12 @@ CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
 
     if (this->course == row.course) {
         if (debug) {
-            printf("Successfully found matching row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s) in CP was found at index %d.\n", row.course, row.prereq, index);
         }
         return this;
     } else {
         if (debug) {
-            printf("Could not find matching row at hashtable index %i, returning null\n", index);
+            printf("Tuple (%s, %s) in CP was NOT found at index %d.\n", row.course, row.prereq, index);
         }
         return NULL;
     }
@@ -84,12 +91,14 @@ CPRow* deleteCP(CPRow row, CPRow* table[], bool debug){
     }
 
     if (this->course == row.course) {
-        CPRow* returner = this->next;
-        this->next = (this->next)->next;
+
+        this->course = NULL;
+        this->prereq = NULL;
+
         if (debug) {
-            printf("Successfully deleted row at hashtable index %i\n", index);
+            printf("Tuple (%s, %s) in CP was deleted at index %d.\n", row.course, row.prereq, index);
         }
-        return returner;
+        return this;
     }
 
     while ((this->next) != NULL) {
@@ -98,14 +107,14 @@ CPRow* deleteCP(CPRow row, CPRow* table[], bool debug){
             CPRow* returner = this->next;
             this->next = (this->next)->next;
             if (debug) {
-                printf("Successfully deleted row at hashtable index %i\n", index);
+                printf("Tuple (%s, %s) in CP was deleted at index %d.\n", row.course, row.prereq, index);
             }
             return returner;
         }
         this = this->next;
     }
     if (debug) {
-        printf("No matching row to delete in hashtable at index %i, returning null\n", index);
+        printf("Tuple (%s, %s) in CP was NOT deleted/found at index %d.\n", row.course, row.prereq, index);
     }
     return NULL;
 }
