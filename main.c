@@ -59,9 +59,9 @@ int main(int argc, char const *argv[])
 
 
     C_S_G_Row* lookedup = lookupCSG(toFill, CSGtable, true);
-    for (int i = 0; i < 6; i++) {
-        C_S_G_Row* returned = deleteCSG(toFill, CSGtable, true);
-    }
+//    for (int i = 0; i < 6; i++) {
+//        C_S_G_Row* returned = deleteCSG(toFill, CSGtable, true);
+//    }
 
     printf("\n\t *** TESTING SNAP *** \n\n");
 
@@ -115,8 +115,8 @@ int main(int argc, char const *argv[])
     SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
     thisRow = lookupSNAP(row2, SNAPtable, true);
 
-    SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
-    returned = deleteSNAP(snapRow, SNAPtable, true);
+    //SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
+    //returned = deleteSNAP(snapRow, SNAPtable, true);
 
 
 
@@ -177,8 +177,8 @@ int main(int argc, char const *argv[])
     CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
     CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
 
-    CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
-    deletedCP = deleteCP(cpRow, CPtable, true);
+    //CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
+    //deletedCP = deleteCP(cpRow, CPtable, true);
 
 
     //4) CDH
@@ -237,15 +237,15 @@ int main(int argc, char const *argv[])
     CDHRow* CDHInsert = lookupCDH(cdhRow, CDHTable, true);
     CDHInsert = lookupCDH(cdhRow1, CDHTable, true);
 
-    CDHRow* CDHDelete = deleteCDH(cdhRow, CDHTable, true);
-    CDHDelete = deleteCDH(cdhRow, CDHTable, true);
+    //CDHRow* CDHDelete = deleteCDH(cdhRow, CDHTable, true);
+    //CDHDelete = deleteCDH(cdhRow, CDHTable, true);
 
     cdhRow.course = "EE400";
     cdhRow.day = "Th";
     cdhRow.hour = "10AM";
 
     CDHInsert = lookupCDH(cdhRow, CDHTable, true);
-    CDHDelete = deleteCDH(cdhRow, CDHTable, true);
+    //CDHDelete = deleteCDH(cdhRow, CDHTable, true);
 
     printf("\n\t *** TESTING CR *** \n\n");
 
@@ -278,7 +278,7 @@ int main(int argc, char const *argv[])
     printCRRelation(CRTable, true);
 
     CRRow* lookCR = lookupCR(crRow, CRTable, true);
-    CRRow* deleteCRTest = deleteCR(crRow, CRTable, true);
+    //CRRow* deleteCRTest = deleteCR(crRow, CRTable, true);
 
     lookCR = lookupCR(crRow, CRTable, true);
 
@@ -286,7 +286,7 @@ int main(int argc, char const *argv[])
     crRow.room = "Dewey 1101";
 
     lookCR = lookupCR(crRow, CRTable, true);
-    deleteCRTest = deleteCR(crRow, CRTable, true);
+    //deleteCRTest = deleteCR(crRow, CRTable, true);
 
 
 
