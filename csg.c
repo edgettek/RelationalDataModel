@@ -76,7 +76,6 @@ C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 		this = this->next;
 	}
 
-
 	if (strcmp(this->course, row.course) == 0 && this->StudentId == row.StudentId && strcmp(this->grade, row.grade) == 0) {
 		if (debug) {
 			printf("Tuple (%s, %d, %s) in CSG was found at index %d.\n", row.course, row.StudentId, row.grade, index);
@@ -229,7 +228,6 @@ int main(int argc, char const *argv[])
 		CSGtable[i]->next = NULL;
 	}
 
-
 	// Inserting tuples into CSG Relation
 	C_S_G_Row toFill;
 
@@ -286,8 +284,8 @@ int main(int argc, char const *argv[])
 		SNAPtable[i]->phone = NULL;
     }
     SNAPRow snapRow;
-	snapRow.name = "C. Brown";
-    snapRow.StudentId = 28890;
+	snapRow.name = "C.Brown";
+    snapRow.StudentId = 12345;
 	snapRow.address = "12 Apple St.";
 	snapRow.phone = "555-1234";
 	snapRow.next = NULL;
@@ -296,7 +294,7 @@ int main(int argc, char const *argv[])
 
 	SNAPRow row2;
 	row2.name = "Raina Langevin";
-	row2.StudentId = 12345;
+	row2.StudentId = 12335;
 	row2.address = "Burlington Street, Burlington, VT";
 	row2.phone = "555-3334";
 	row2.next = NULL;
@@ -307,9 +305,9 @@ int main(int argc, char const *argv[])
 
 	SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
 	thisRow = lookupSNAP(row2, SNAPtable, true);
-	for (int i = 0; i < 6; i++) {
-		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
-	}
+//	for (int i = 0; i < 6; i++) {
+//		SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
+//	}
 
 
 	printf("\n\t *** TESTING CP *** \n\n");
@@ -369,10 +367,11 @@ int main(int argc, char const *argv[])
 
 	return 0;
 
+
+	//PART 2 TEST
+	char* grade = getGradeByName("C.Brown", "CS101", SNAPtable, CSGtable);
+	printf("grade: %s ", grade);
+
 }
-
-
-
-
 
 
