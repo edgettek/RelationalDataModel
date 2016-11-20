@@ -67,24 +67,31 @@ CPRow* lookupCP(CPRow row, CPRow* table[], bool debug){
         return this;
     }
 
+    return NULL;
 
-    if (this->course == row.course) {
-        if (debug) {
-            printf("Tuple (%s, %s) in CP was found at index %d.\n", row.course, row.prereq, index);
-        }
-        return this;
-    } else {
-        if (debug) {
-            printf("Tuple (%s, %s) in CP was NOT found at index %d.\n", row.course, row.prereq, index);
-        }
-        return NULL;
-    }
+//
+//    if (this->course == row.course) {
+//        if (debug) {
+//            printf("Tuple (%s, %s) in CP was found at index %d.\n", row.course, row.prereq, index);
+//        }
+//        return this;
+//    } else {
+//        if (debug) {
+//            printf("Tuple (%s, %s) in CP was NOT found at index %d.\n", row.course, row.prereq, index);
+//        }
+//        return NULL;
+//    }
 }
 
 CPRow* deleteCP(CPRow row, CPRow* table[], bool debug){
     int index = hashOneString(row.course, 6, TABLE_SIZE);
 
     CPRow* this = table[index];
+
+    if(lookupCP(row, table, false) == NULL) {
+        printf("Tuple (%s, %s) in CP was NOT deleted/found at index %d.\n", row.course, row.prereq, index);
+        return NULL;
+    }
 
     if(this->course == NULL) {
         return NULL;
@@ -117,4 +124,41 @@ CPRow* deleteCP(CPRow row, CPRow* table[], bool debug){
         printf("Tuple (%s, %s) in CP was NOT deleted/found at index %d.\n", row.course, row.prereq, index);
     }
     return NULL;
+}
+
+void printCPRelation(CPRow* table[], bool debug) {
+
+    FILE *CPFile;
+
+    CPFile = fopen("CP.txt", "w" );
+
+    if (CPFile == NULL)
+    {
+        perror("Error opening file!\n");
+        exit(1);
+    }
+
+    CPRow* currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+
+        if(currentRow->course != NULL) {
+
+            fprintf(CPFile, "%s\t%s\n", currentRow->course, currentRow->prereq);
+
+            while (currentRow->next != NULL) {
+                currentRow = currentRow->next;
+                fprintf(CPFile, "%s\t%s\n", currentRow->course, currentRow->prereq);
+
+            }
+        }
+
+    }
+
+    printf("CP Relation has been printed to file!\n");
+
+    fclose(CPFile);
+
 }

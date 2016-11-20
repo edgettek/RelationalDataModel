@@ -1,0 +1,3 @@
+EE200	25 Ohm Hall
+CS101	Turing Aud.
+PH100	Newton Lab.

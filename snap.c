@@ -126,3 +126,40 @@ SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug){
     }
     return NULL;
 }
+
+void printSNAPRelation(SNAPRow* table[], bool debug) {
+
+    FILE *SNAPFile;
+
+    SNAPFile = fopen("SNAP.txt", "w" );
+
+    if (SNAPFile == NULL)
+    {
+        perror("Error opening file!\n");
+        exit(1);
+    }
+
+    SNAPRow* currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+
+        if(currentRow->StudentId != 0) {
+
+            fprintf(SNAPFile, "%d\t%s\t%s\t%s\n", currentRow->StudentId, currentRow->name, currentRow->address, currentRow->phone);
+
+            while (currentRow->next != NULL) {
+                currentRow = currentRow->next;
+                fprintf(SNAPFile, "%d\t%s\t%s\t%s\n", currentRow->StudentId, currentRow->name, currentRow->address, currentRow->phone);
+
+            }
+        }
+
+    }
+
+    printf("SNAP Relation has been printed to file!\n");
+
+    fclose(SNAPFile);
+
+}

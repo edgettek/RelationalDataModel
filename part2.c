@@ -30,11 +30,11 @@ char* getRoom(char*name, char* time, char* day, C_S_G_Row* csgTable[], CRRow* cr
     while(tempRow->next!=NULL){
         tempRow = tempRow->next;
         char* course = tempRow->course;
-        CDHRow* cdhRow = selectCDHByCourseAndDay(cdhTable, course, day);
-        if(cdhRow->hour==time){
-            CRRow* crRow = selectCRByCourse(crTable, course);
-            return crRow->room;
-        }
+//        CDHRow* cdhRow = selectCDHByCourseAndDay(cdhTable, course, day);
+//        if(cdhRow->hour==time){
+//            CRRow* crRow = selectCRByCourse(crTable, course);
+//            return crRow->room;
+//        }
     }
     return NULL;
 }

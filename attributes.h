@@ -53,10 +53,20 @@ extern int hashTwoStrings(char str1[], int strSize1, char str2[],int strSize2, i
 
 extern int hashOneString(char str[], int strSize, int hashPrime);
 
+extern void printCSGRelation(C_S_G_Row* table[], bool debug);
+extern C_S_G_Row* deleteCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
+extern void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
+extern C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
+
 extern void insertSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* deleteSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug);
 extern C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug);
+
+extern void printSNAPRelation(SNAPRow* table[], bool debug);
+extern void printCPRelation(CPRow* table[], bool debug);
+extern void printCRRelation(CRRow* table[], bool debug);
+extern void printCDHRelation(CDHRow* table[], bool debug);
 
 extern void insertCP(CPRow row, CPRow* table[], bool debug);
 extern CPRow* deleteCP(CPRow row, CPRow* table[], bool debug);

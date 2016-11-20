@@ -8,7 +8,7 @@
 CC=gcc
 CFLAGS=-I.
 DEPS = attributes.h
-OBJ = csg.c snap.c cdh.c cp.c cr.c
+OBJ = csg.c snap.c cdh.c cp.c cr.c main.c
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
