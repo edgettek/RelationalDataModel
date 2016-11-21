@@ -293,8 +293,17 @@ int main(int argc, char const *argv[])
 
 
     //PART 2 TEST
+
+    printf("\n\t *** PART 2: \"What grade did StudentName get in CourseName?\"  *** \n\n");
+
     char* grade = getGradeByName("C.Brown", "CS101", SNAPtable, CSGtable);
-    printf("grade: %s ", grade);
+    printf("C.Brown got a grade of %s in CSC101\n", grade);
+
+    grade = getGradeByName("L. Van Pelt", "PH100", SNAPtable, CSGtable);
+    printf("L. Van Pelt got a grade of %s in PH100\n", grade);
+
+    grade = getGradeByName("A. Lincoln", "PH100", SNAPtable, CSGtable);
+    printf("A. Lincoln got a grade of %s in PH100\n", grade);
 
     return 0;
 

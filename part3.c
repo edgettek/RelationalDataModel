@@ -10,13 +10,22 @@
 
 SNAPRow* selectSNAPByName(char* name, SNAPRow* table[]){
 //assuming one entry per name
+//
+    SNAPRow *thisRow;
     for(int i = 0; i<TABLE_SIZE; i++){
-        while(table[i]->next!=NULL){
-            SNAPRow* thisRow = table[i];
-            if(thisRow->name == name){
-                return thisRow;
+        thisRow = table[i];
+
+        if(thisRow->name != NULL) {
+            if (table[i]->name == name) {
+                return table[i];
             }
-            thisRow = thisRow->next;
+
+            while (thisRow->next != NULL) {
+                thisRow = thisRow->next;
+                if (thisRow->name == name) {
+                    return thisRow;
+                }
+            }
         }
     }
     return NULL;
