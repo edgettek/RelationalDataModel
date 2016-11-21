@@ -305,6 +305,19 @@ int main(int argc, char const *argv[])
     grade = getGradeByName("A. Lincoln", "PH100", SNAPtable, CSGtable);
     printf("A. Lincoln got a grade of %s in PH100\n", grade);
 
+
+    printf("\n\t *** PART 2: \"Where is StudentName at Time on Day?\"  *** \n\n");
+
+    char* roomResult = getRoom("C.Brown", "9AM", "F", CSGtable, CRTable, SNAPtable, CDHTable);
+    printf("C.Brown is in Room %s at %s on %s\n", roomResult, "9AM", "F");
+
+    roomResult = getRoom("P. Patty", "1PM", "W", CSGtable, CRTable, SNAPtable, CDHTable);
+    printf("P. Patty is in Room %s at %s on %s\n", roomResult, "1PM", "W");
+
+    roomResult = getRoom("C.Brown", "11AM", "F", CSGtable, CRTable, SNAPtable, CDHTable);
+    printf("C.Brown is in Room %s at %s on %s\n", roomResult, "11AM", "F");
+
+
     return 0;
 
     printf("\n\n *** END OF PROGRAM ***\n");

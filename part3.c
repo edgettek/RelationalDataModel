@@ -76,27 +76,33 @@ char* projectGrade(C_S_G_Row* row){
 
 C_S_G_Row* selectCoursesById(C_S_G_Row* csgTable[], int studentId){
     //NOTE - INEFFICIENT APPROACH- Should use secondary indexes if we have time..
-    C_S_G_Row* row = NULL;
-    C_S_G_Row* tempRow = NULL;
+    C_S_G_Row* row = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+    C_S_G_Row* tempRow = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
     for(int i = 0; i<TABLE_SIZE; i++){
-        while(csgTable[i]->next!=NULL){
+        if(strcmp(csgTable[i]->course, "") != 0){
             C_S_G_Row* thisRow = csgTable[i];
             if(thisRow->StudentId == studentId){
-                if(row==NULL){
-                    row = thisRow;
-                    row->next = tempRow;
+                if(strcmp(row->course, "") == 0){
+                    memcpy(row, thisRow, sizeof(C_S_G_Row));
+                    row->next = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+                    tempRow = row->next;
                 }
                 else{
-                    if(tempRow==NULL){
-                        tempRow = thisRow;
+                    if(strcmp(tempRow->course, "") == 0){
+                        memcpy(tempRow, thisRow, sizeof(C_S_G_Row));
+                        tempRow->next = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+                        tempRow = tempRow->next;
                     }
-                    else{
-                        while(tempRow->next!=NULL){
-                            tempRow = tempRow->next;
-                        }
-                        tempRow->next = thisRow;
-                    }
+//                    else{
+//                        while(tempRow->next!=NULL){
+//                            tempRow = tempRow->next;
+//                        }
+//                        tempRow->next = thisRow;
+//                    }
                 }
+            }
+            else {
+
             }
         }
     }

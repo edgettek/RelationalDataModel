@@ -46,7 +46,7 @@ CDHRow* lookupCDH(CDHRow row, CDHRow* table[], bool debug){
     CDHRow* this = table[index];
 
     if(this->course == NULL) {
-        printf("Tuple (%s, %s, %s) in CDH was NOT found at index %d.\n", row.course, row.day, row.hour, index);
+        if(debug) {printf("Tuple (%s, %s, %s) in CDH was NOT found at index %d.\n", row.course, row.day, row.hour, index);}
         return NULL;
     }
 
