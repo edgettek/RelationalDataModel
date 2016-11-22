@@ -1,17 +1,12 @@
+#include "attributes.h"
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
-#include "attributes.h"
 
-C_S_G_Row* project(C_S_G_Row* table, char** array_of_attributes) {
+C_S_G_Row** project(C_S_G_Row* table[], char* array_of_attributes[]) {
 
-	int size = 0;
-	C_S_G_Row* tempPointer = table;
-	while (tempPointer != NULL) {
-		size++;
-		tempPointer++;
-	}
+	int size = TABLE_SIZE;
 
 	bool keepCourse = false;
 	bool keepStudent = false;
@@ -31,18 +26,24 @@ C_S_G_Row* project(C_S_G_Row* table, char** array_of_attributes) {
 
 		array_of_attributes++;
 	}
+    C_S_G_Row* tablePointer;
 
-	C_S_G_Row* returner = (C_S_G_Row*) malloc(size * sizeof(C_S_G_Row));
+    C_S_G_Row* returner[TABLE_SIZE];
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        returner[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+        returner[i]->next = NULL;
+    }
+    C_S_G_Row* returnerPointer;
 
-	tablePointer = table;
-	returnerPointer = returner;
-	while (tempPointer != NULL) {
+	tablePointer = table[0];
+	returnerPointer = returner[0];
+	while (tablePointer != NULL) {
 
 		C_S_G_Row* newRow = returnerPointer;
 
-		newRow->Course = (keepCourse) ? (tablePointer->Course) : ("No");
-		newRow->Student = (keepStudent) ? (tablePointer->Student) : (-1);
-		newRow->Grade = (keepGrade) ? (tablePointer->Grade) : ("No");
+		strcpy(newRow->course, ((keepCourse) ? (tablePointer->course) : ("")));
+		strcpy(newRow->StudentId, ((keepStudent) ? (tablePointer->StudentId) : (-1)));
+		strcpy(newRow->grade, ((keepGrade) ? (tablePointer->grade) : ("")));
 
 		returnerPointer++;
 		tablePointer++;

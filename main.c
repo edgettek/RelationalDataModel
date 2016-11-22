@@ -318,6 +318,13 @@ int main(int argc, char const *argv[])
     printf("C.Brown is in Room %s at %s on %s\n", roomResult, "11AM", "F");
 
 
+
+
+
+    //PART 3 TEST:
+
+    char* array[] = {"course"};
+    C_S_G_Row* projectRow = project(CSGtable, array);
     return 0;
 
     printf("\n\n *** END OF PROGRAM ***\n");

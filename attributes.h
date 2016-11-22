@@ -93,4 +93,6 @@ extern CRRow* selectCRByCourse(CRRow* crTable[], char* course);
 
 extern char* getRoom(char*name, char* time, char* day, C_S_G_Row* csgTable[], CRRow* crTable[], SNAPRow* snapTable[], CDHRow* cdhTable[]);
 
+extern C_S_G_Row** project(C_S_G_Row* table[], char* array_of_attributes[]);
+
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H
