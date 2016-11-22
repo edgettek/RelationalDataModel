@@ -59,11 +59,6 @@ C_S_G_Row* lookupCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	int index = hashIntAndString(row.course, 6, row.StudentId, TABLE_SIZE);
 	C_S_G_Row* this = table[index];
 
-	if(this->course == NULL) {
-		return NULL;
-	}
-
-
 	while ((this->next) != NULL) {
 		if (strcmp(this->course, row.course) == 0 &&
 			this->StudentId == row.StudentId &&
