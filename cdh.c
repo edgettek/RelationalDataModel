@@ -13,7 +13,7 @@ void insertCDH(CDHRow row, CDHRow* table[], bool debug){
     CDHRow* this = table[index];
 
     if(lookupCDH(row, table, false) != NULL) {
-        if(debug) {printf("Tuple (%s, %d, %s) already existed.\n", row.course, row.day, row.hour);}
+        if(debug) {printf("Tuple (%s, %s, %s) already existed.\n", row.course, row.day, row.hour);}
         return;
     }
     else {
@@ -156,7 +156,7 @@ void printCDHRelation(CDHRow* table[], bool debug) {
 
             while (currentRow->next != NULL) {
                 currentRow = currentRow->next;
-                fprintf(CDHFile, "%s\t%s\n", currentRow->course, currentRow->day, currentRow->hour);
+                fprintf(CDHFile, "%s\t%s\t%s\n", currentRow->course, currentRow->day, currentRow->hour);
 
             }
         }
@@ -169,3 +169,67 @@ void printCDHRelation(CDHRow* table[], bool debug) {
 
 }
 
+void readFromFileCDH(CDHRow* table[], char* fileName, bool debug) {
+
+    printf("\nReading new CDH Table from File\n");
+
+    FILE *CDHFile;
+
+    char buff[255];
+    char buff2[255];
+    char buff3[255];
+
+    CDHFile = fopen(fileName, "r" );
+
+    if (CDHFile == NULL)
+    {
+        perror("Error opening file!\n");
+        exit(1);
+    }
+    CDHRow toFill;
+
+
+    while (!feof (CDHFile)) {
+        fscanf(CDHFile, "%[^\t]\t%[^\t]\t%[^\t]\t", buff, buff2, buff3);
+
+        toFill.course = (char*) malloc(sizeof(char*) * 255);
+        toFill.day = (char*) malloc(sizeof(char*) * 255);
+        toFill.hour = (char*) malloc(sizeof(char*) * 255);
+
+        strcpy(toFill.course, buff);
+        strcpy(toFill.day, buff2);
+        strcpy(toFill.hour, buff3);
+
+        insertCDH(toFill, table, false);
+    }
+    fclose(CDHFile);
+
+    return;
+
+}
+
+void printCDHToConsole(CDHRow* table[], bool debug) {
+
+    printf("Printing Out NEW CDH Table\n\n");
+
+    CDHRow* currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+
+        if(currentRow->course != NULL) {
+
+            printf("%s\t%s\t%s\n", currentRow->course, currentRow->day, currentRow->hour);
+
+            while (currentRow->next != NULL) {
+                currentRow = currentRow->next;
+                printf("%s\t%s\t%s\n", currentRow->course, currentRow->day, currentRow->hour);
+            }
+        }
+
+    }
+
+    printf("\n");
+
+}

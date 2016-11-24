@@ -1,0 +1,3 @@
+/Users/KEdgette1/RelationalDataModel/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/KEdgette1/RelationalDataModel/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/KEdgette1/RelationalDataModel/cmake-build-debug/CMakeFiles/RelationalDataModel.dir

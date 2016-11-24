@@ -162,3 +162,66 @@ void printCPRelation(CPRow* table[], bool debug) {
     fclose(CPFile);
 
 }
+
+void readFromFileCP(CPRow* table[], char* fileName, bool debug) {
+
+    printf("\nReading new CP Table from File\n");
+
+    FILE *CPFile;
+
+    char buff[255];
+    char buff2[255];
+
+    CPFile = fopen(fileName, "r" );
+
+    if (CPFile == NULL)
+    {
+        perror("Error opening file!\n");
+        exit(1);
+    }
+    CPRow toFill;
+
+
+    while (!feof (CPFile)) {
+        fscanf(CPFile, "%[^\t]\t%[^\t]\t", buff, buff2);
+
+        toFill.course = (char*) malloc(sizeof(char*) * 255);
+        toFill.prereq = (char*) malloc(sizeof(char*) * 255);
+
+        strcpy(toFill.course, buff);
+        strcpy(toFill.prereq, buff2);
+
+        insertCP(toFill, table, false);
+    }
+
+    fclose(CPFile);
+
+    return;
+
+}
+
+void printCPToConsole(CPRow* table[], bool debug) {
+
+    printf("Printing Out NEW CP Table\n\n");
+
+    CPRow* currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+
+        if(currentRow->course != NULL) {
+
+            printf("%s\t%s\n", currentRow->course, currentRow->prereq);
+
+            while (currentRow->next != NULL) {
+                currentRow = currentRow->next;
+                printf("%s\t%s\n", currentRow->course, currentRow->prereq);
+            }
+        }
+
+    }
+
+    printf("\n");
+
+}

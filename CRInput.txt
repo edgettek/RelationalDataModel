@@ -1,0 +1,4 @@
+CS171	1101 Dewey Hall	
+PH161	Hubbel Aud.	
+CG101	Rush Rhees Lib.	
+CS210	Hoyt Aud.	

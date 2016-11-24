@@ -95,4 +95,16 @@ extern char* getRoom(char*name, char* time, char* day, C_S_G_Row* csgTable[], CR
 
 extern C_S_G_Row** project(C_S_G_Row* table[], char* array_of_attributes[]);
 
+extern void readFromFileCSG(C_S_G_Row* table[], char* fileName, bool debug);
+extern void readFromFileCR(CRRow* table[], char* fileName, bool debug);
+extern void readFromFileCP(CPRow* table[], char* fileName, bool debug);
+extern void readFromFileCDH(CDHRow* table[], char* fileName, bool debug);
+extern void readFromFileSNAP(SNAPRow* table[], char* fileName, bool debug);
+
+extern void printCSGToConsole(C_S_G_Row* table[], bool debug);
+extern void printCRToConsole(CRRow* table[], bool debug);
+extern void printCPToConsole(CPRow* table[], bool debug);
+extern void printCDHToConsole(CDHRow* table[], bool debug);
+extern void printSNAPToConsole(SNAPRow* table[], bool debug);
+
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H

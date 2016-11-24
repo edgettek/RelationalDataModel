@@ -163,3 +163,66 @@ void printCRRelation(CRRow* table[], bool debug) {
     fclose(CRFile);
 
 }
+
+void readFromFileCR(CRRow* table[], char* fileName, bool debug) {
+
+    printf("\nReading new CR Table from File\n");
+
+    FILE *CRFile;
+
+    char buff[255];
+    char buff2[255];
+
+    CRFile = fopen(fileName, "r" );
+
+    if (CRFile == NULL)
+    {
+        perror("Error opening file!\n");
+        exit(1);
+    }
+    CRRow toFill;
+
+
+    while (!feof (CRFile)) {
+        fscanf(CRFile, "%[^\t]\t%[^\t]\t", buff, buff2);
+
+        toFill.course = (char*) malloc(sizeof(char*) * 255);
+        toFill.room = (char*) malloc(sizeof(char*) * 255);
+
+        strcpy(toFill.course, buff);
+        strcpy(toFill.room, buff2);
+
+        insertCR(toFill, table, false);
+    }
+
+    fclose(CRFile);
+
+    return;
+
+}
+
+void printCRToConsole(CRRow* table[], bool debug) {
+
+    printf("Printing Out NEW CR Table\n\n");
+
+    CRRow* currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+
+        if(currentRow->room != NULL) {
+
+            printf("%s\t%s\n", currentRow->course, currentRow->room);
+
+            while (currentRow->next != NULL) {
+                currentRow = currentRow->next;
+                printf("%s\t%s\n", currentRow->course, currentRow->room);
+            }
+        }
+
+    }
+
+    printf("\n");
+
+}

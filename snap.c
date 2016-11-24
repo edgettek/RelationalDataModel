@@ -52,7 +52,7 @@ SNAPRow* lookupSNAP(SNAPRow row, SNAPRow* table[], bool debug){
     }
 
     while ((this->next) != NULL) {
-        if (strcmp(this->StudentId, row.StudentId) == 0 && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0){
+        if (this->StudentId == row.StudentId && strcmp(this->name, row.name) == 0 && strcmp(this->address, row.address) == 0 && strcmp(this->phone, row.phone) == 0){
             if (debug) {
                 printf("Tuple (%d, %s, %s, %s) in SNAP was found at index %d.\n", row.StudentId, row.name, row.address, row.phone, index);
             }
@@ -161,5 +161,72 @@ void printSNAPRelation(SNAPRow* table[], bool debug) {
     printf("SNAP Relation has been printed to file!\n");
 
     fclose(SNAPFile);
+
+}
+
+void readFromFileSNAP(SNAPRow* table[], char* fileName, bool debug) {
+
+    printf("\nReading new SNAP Table from File\n");
+
+    FILE *SNAPFile;
+
+    int i = 0;
+    char buff2[255];
+    char buff3[255];
+    char buff4[255];
+
+    SNAPFile = fopen(fileName, "r" );
+
+    if (SNAPFile == NULL)
+    {
+        perror("Error opening file!\n");
+        exit(1);
+    }
+    SNAPRow toFill;
+
+
+    while (!feof (SNAPFile)) {
+        fscanf(SNAPFile, "%d\t%[^\t]\t%[^\t]\t%[^\t]", &i, buff2, buff3, buff4);
+        toFill.name = (char*) malloc(sizeof(char) * 255);
+        toFill.address = (char*) malloc(sizeof(char) * 255);
+        toFill.phone = (char*) malloc(sizeof(char) * 255);
+
+        toFill.StudentId = i;
+        strcpy(toFill.name, buff2);
+        strcpy(toFill.address, buff3);
+        strcpy(toFill.phone, buff4);
+
+        insertSNAP(toFill, table, false);
+    }
+
+    fclose(SNAPFile);
+
+    return;
+
+}
+
+void printSNAPToConsole(SNAPRow* table[], bool debug) {
+
+    printf("Printing Out NEW SNAP Table\n\n");
+
+    SNAPRow* currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+
+        if(currentRow->name != NULL) {
+
+            printf("%d\t%s\t%s\t%s\n", currentRow->StudentId, currentRow->name, currentRow->address, currentRow->phone);
+
+            while (currentRow->next != NULL) {
+                currentRow = currentRow->next;
+                printf("%d\t%s\t%s\t%s\n", currentRow->StudentId, currentRow->name, currentRow->address, currentRow->phone);
+            }
+        }
+
+    }
+
+    printf("\n");
 
 }

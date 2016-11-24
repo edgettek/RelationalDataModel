@@ -211,6 +211,72 @@ void printCSGRelation(C_S_G_Row* table[], bool debug) {
 
 }
 
+void printCSGToConsole(C_S_G_Row* table[], bool debug) {
+
+	printf("Printing Out NEW CSG Table\n\n");
+
+	C_S_G_Row* currentRow;
+
+	for(int i = 0; i < TABLE_SIZE; i++) {
+
+		currentRow = table[i];
+
+		if(strcmp(currentRow->grade, "") != 0) {
+
+			printf("%s\t%d\t%s\n", currentRow->course, currentRow->StudentId, currentRow->grade);
+
+			while (currentRow->next != NULL) {
+				currentRow = currentRow->next;
+				printf("%s\t%d\t%s\n", currentRow->course, currentRow->StudentId, currentRow->grade);
+
+			}
+		}
+
+	}
+
+	printf("\n");
+
+}
+
+
+void readFromFileCSG(C_S_G_Row* table[], char* fileName, bool debug) {
+
+	printf("\nReading new CSG Table from File\n");
+
+	FILE *CSGFile;
+
+	char buff[255];
+	char buff2[255];
+	int i = 0;
+
+	CSGFile = fopen(fileName, "r" );
+
+	if (CSGFile == NULL)
+	{
+		perror("Error opening file!\n");
+		exit(1);
+	}
+	C_S_G_Row toFill;
+
+	while (!feof (CSGFile)) {
+		fscanf(CSGFile, "%s", buff);
+		fscanf(CSGFile, "%d", &i);
+		fscanf(CSGFile, "%s", buff2);
+
+
+		strcpy(toFill.course, buff);
+		toFill.StudentId = i;
+		strcpy(toFill.grade, buff2);
+
+		insertCSG(toFill, table, false);
+	}
+
+	fclose(CSGFile);
+
+	return;
+
+}
+
 
 
 

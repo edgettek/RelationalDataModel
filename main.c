@@ -58,10 +58,21 @@ int main(int argc, char const *argv[])
     printCSGRelation(CSGtable, true);
 
 
+
     C_S_G_Row* lookedup = lookupCSG(toFill, CSGtable, true);
 //    for (int i = 0; i < 6; i++) {
 //        C_S_G_Row* returned = deleteCSG(toFill, CSGtable, true);
 //    }
+
+    C_S_G_Row* CSGNewTable[TABLE_SIZE];
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        CSGNewTable[i] = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+        CSGNewTable[i]->next = NULL;
+    }
+
+    readFromFileCSG(CSGNewTable, "CSGInput.txt", true);
+
+    printCSGToConsole(CSGNewTable, true);
 
     printf("\n\t *** TESTING SNAP *** \n\n");
 
@@ -118,7 +129,27 @@ int main(int argc, char const *argv[])
     //SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
     //returned = deleteSNAP(snapRow, SNAPtable, true);
 
+    SNAPRow* SNAPtable2[TABLE_SIZE];
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        SNAPtable2[i] = (SNAPRow*) malloc(sizeof(SNAPRow));
+        SNAPtable2[i]->name=NULL;
+        SNAPtable2[i]->StudentId = 0;
+        SNAPtable2[i]->next = NULL;
+        SNAPtable2[i]->address = NULL;
+        SNAPtable2[i]->phone = NULL;
+    }
 
+    readFromFileSNAP(SNAPtable2, "SNAPInput.txt", true);
+
+    snapRow.name = "A. Brown";
+    snapRow.StudentId = 12344;
+    snapRow.address = "444 Birch Lane";
+    snapRow.phone = "654-2341";
+    snapRow.next = NULL;
+
+    thisRow = lookupSNAP(snapRow, SNAPtable, true);
+
+    printSNAPToConsole(SNAPtable2, true);
 
     printf("\n\t *** TESTING CP *** \n\n");
     //3) CP
@@ -180,6 +211,17 @@ int main(int argc, char const *argv[])
     //CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
     //deletedCP = deleteCP(cpRow, CPtable, true);
 
+    CPRow* CPtable2[TABLE_SIZE];
+    for(int i = 0;i<TABLE_SIZE; i++){
+        CPtable2[i] = (CPRow*)malloc(sizeof(CPRow));
+        CPtable2[i]->next = NULL;
+        CPtable2[i]->course = NULL;
+        CPtable2[i]->prereq = NULL;
+    }
+
+    readFromFileCP(CPtable2, "CPInput.txt", true);
+
+    printCPToConsole(CPtable2, true);
 
     //4) CDH
 
@@ -247,13 +289,29 @@ int main(int argc, char const *argv[])
     CDHInsert = lookupCDH(cdhRow, CDHTable, true);
     //CDHDelete = deleteCDH(cdhRow, CDHTable, true);
 
+    CDHRow* CDHTable2[TABLE_SIZE];
+
+
+    for(int i = 0;i<TABLE_SIZE; i++){
+        CDHTable2[i] = (CDHRow*)malloc(sizeof(CDHRow));
+        CDHTable2[i]->next = NULL;
+        CDHTable2[i]->course = NULL;
+        CDHTable2[i]->day = NULL;
+        CDHTable2[i]->hour = NULL;
+    }
+
+    readFromFileCDH(CDHTable2, "CDHInput.txt", true);
+
+    printCDHToConsole(CDHTable2, true);
+
+
     printf("\n\t *** TESTING CR *** \n\n");
 
     CRRow* CRTable[TABLE_SIZE];
 
 
     for(int i = 0;i<TABLE_SIZE; i++){
-        CRTable[i] = (CDHRow*)malloc(sizeof(CDHRow));
+        CRTable[i] = (CRRow*)malloc(sizeof(CRRow));
         CRTable[i]->next = NULL;
         CRTable[i]->course = NULL;
         CRTable[i]->room = NULL;
@@ -288,9 +346,19 @@ int main(int argc, char const *argv[])
     lookCR = lookupCR(crRow, CRTable, true);
     //deleteCRTest = deleteCR(crRow, CRTable, true);
 
+    CRRow* CRTable2[TABLE_SIZE];
 
 
+    for(int i = 0;i<TABLE_SIZE; i++){
+        CRTable2[i] = (CRRow*)malloc(sizeof(CRRow));
+        CRTable2[i]->next = NULL;
+        CRTable2[i]->course = NULL;
+        CRTable2[i]->room = NULL;
+    }
 
+    readFromFileCR(CRTable2, "CRInput.txt", true);
+
+    printCRToConsole(CRTable2, true);
 
     //PART 2 TEST
 
