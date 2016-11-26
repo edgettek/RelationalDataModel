@@ -108,11 +108,6 @@ void insertCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 
 		C_S_G_Row *newer = (C_S_G_Row *) malloc(sizeof(C_S_G_Row));
 
-		if (this->course == NULL) {
-			this->next = newer;
-			this = newer;
-		}
-
 		memcpy(this, &row, sizeof(C_S_G_Row));
 
 		if (debug) {
@@ -131,10 +126,6 @@ C_S_G_Row* deleteCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 	}
 
 	C_S_G_Row* this = table[index];
-
-	if(this->course == NULL) {
-		return NULL;
-	}
 
 	if (strcmp(this->course, row.course) == 0 && this->StudentId == row.StudentId && strcmp(this->grade, row.grade) == 0) {
 
