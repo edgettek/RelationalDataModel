@@ -66,12 +66,18 @@ CRDHrow* join(CRRow* CRTable[], CDHRow* CDHTable[]) {
 
 		if (strcmp(CDHRowPointer->course, "") != 0) {
 
-			CRRow* temp = (CRRow*) malloc(sizeof(CRRow));
-			temp->course = (char*) malloc(7 * sizeof(char));
-
 			char* courseName = CDHRowPointer->course;
-			strcpy(temp->course, courseName);
-			CRRow* possiblyFound = lookupCR(*temp, CRTable, false);
+			CRRow* possiblyFound = NULL;
+
+			for (int j = 0; j < 1009; ++j) {
+				if (CRTable[j] != NULL) {
+					if (CRTable[j]->course != NULL) {
+						if (strcmp(CRTable[j]->course, courseName) == 0) {
+							possiblyFound = CRTable[j];
+						}
+					}
+				}
+			}
 
 			while (possiblyFound != NULL) {
 
