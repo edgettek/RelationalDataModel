@@ -9,7 +9,6 @@
 
 int main(int argc, char const *argv[])
 {
-
     printf("\n\t *** TESTING CSG *** \n\n");
 
     // Initialize table
