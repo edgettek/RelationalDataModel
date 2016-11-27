@@ -43,6 +43,14 @@ typedef struct CRRow{
     struct CRRow* next;
 } CRRow;
 
+typedef struct CRDHrow{
+    char* course; //primary key
+    char* room;
+    char* day;
+    char* hour;
+    struct CRDHrow* next;
+} CRDHrow;
+
 extern int stringToInt(char* string, int stringSize);
 
 extern int hashIntAndString(char courseTitle[], int strSize, int id, int hashPrime);
@@ -93,7 +101,8 @@ extern CRRow* selectCRByCourse(CRRow* crTable[], char* course);
 
 extern char* getRoom(char*name, char* time, char* day, C_S_G_Row* csgTable[], CRRow* crTable[], SNAPRow* snapTable[], CDHRow* cdhTable[]);
 
-extern C_S_G_Row** project(C_S_G_Row* table[], char* array_of_attributes[]);
+extern C_S_G_Row* project(C_S_G_Row* table[], char* array_of_attributes[]);
+extern CRDHrow* join(CRRow* CRTable[], CDHRow* CDHTable[]);
 
 extern void readFromFileCSG(C_S_G_Row* table[], char* fileName, bool debug);
 extern void readFromFileCR(CRRow* table[], char* fileName, bool debug);

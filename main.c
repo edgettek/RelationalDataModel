@@ -392,7 +392,10 @@ int main(int argc, char const *argv[])
     //PART 3 TEST:
 
     char* array[] = {"Course"};
-    C_S_G_Row** projectRow = project(CSGtable, array);
+    C_S_G_Row* projectRow = project(CSGtable, array);
+
+    CRDHrow* joinedRows = join(CRTable, CDHTable);
+
     return 0;
 
     printf("\n\n *** END OF PROGRAM ***\n");
