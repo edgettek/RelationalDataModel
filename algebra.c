@@ -70,16 +70,10 @@ CRDHrow* join(CRRow* CRTable[], CDHRow* CDHTable[]) {
 			temp->course = (char*) malloc(7 * sizeof(char));
 
 			char* courseName = CDHRowPointer->course;
-			printf("Here\n");
 			strcpy(temp->course, courseName);
-			printf("Here\n");
 			CRRow* possiblyFound = lookupCR(*temp, CRTable, false);
 
-			printf("Here\n");
-
 			while (possiblyFound != NULL) {
-
-				printf("Here\n");
 
 				joinedRow->course = CDHRowPointer->course;
 				joinedRow->day = CDHRowPointer->day;
