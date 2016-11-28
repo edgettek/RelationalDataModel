@@ -185,6 +185,7 @@ void printCSGRelation(C_S_G_Row* table[], bool debug) {
 
 		if(strcmp(currentRow->grade, "") != 0) {
 
+
 		fprintf(CSGFile, "%s\t%d\t%s\n", currentRow->course, currentRow->StudentId, currentRow->grade);
 
 			while (currentRow->next != NULL) {
@@ -212,7 +213,7 @@ void printCSGToConsole(C_S_G_Row* table[], bool debug) {
 
 		currentRow = table[i];
 
-		if(strcmp(currentRow->grade, "") != 0) {
+		if(currentRow->StudentId != 0) {
 
 			printf("%s\t%d\t%s\n", currentRow->course, currentRow->StudentId, currentRow->grade);
 

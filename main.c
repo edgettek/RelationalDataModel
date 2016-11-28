@@ -20,6 +20,7 @@ int main(int argc, char const *argv[])
 
     // Inserting tuples into CSG Relation
     C_S_G_Row toFill;
+    toFill.next = NULL;
 
     strcpy(toFill.course, "CS101");
     toFill.StudentId = 12345;
