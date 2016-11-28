@@ -375,10 +375,12 @@ int main(int argc, char const *argv[])
 
     //PART 3 TEST:
 
-    char* array[] = {"Course"};
+    char* array[] = {"Course", "Grade"};
     C_S_G_Row* projectRow = project(CSGtable, array);
+    printProjectedCSGToConsole(projectRow, true);
 
     CRDHrow* joinedRows = join(CRTable, CDHTable);
+    printCDHRToConsole(joinedRows, true);
 
 
 

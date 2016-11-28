@@ -31,27 +31,77 @@ SNAPRow* selectSNAPByName(char* name, SNAPRow* table[]){
     return NULL;
 }
 
-void printCDHRToConsole(CRDHrow* table[], bool debug) {
+void printCDHRToConsole(CRDHrow* table, bool debug) {
 
     printf("Printing Out CRDH Table\n\n");
 
-    CRDHrow* currentRow;
+    CRDHrow currentRow;
 
     for(int i = 0; i < TABLE_SIZE; i++) {
 
         currentRow = table[i];
 
-        if(currentRow->course != NULL) {
+        if(strcmp(currentRow.course, "") != 0) {
 
-            printf("%s\t%s\t%s\t%s\n", currentRow->course, currentRow->room, currentRow->day, currentRow->hour);
+            printf("%s\t%s\t%s\t%s\n", currentRow.course, currentRow.room, currentRow.day, currentRow.hour);
 
-            while (currentRow->next != NULL) {
-                currentRow = currentRow->next;
-                printf("%s\t%s\t%s\t%s\n", currentRow->course, currentRow->room, currentRow->day, currentRow->hour);
+            while (currentRow.next != NULL) {
+                currentRow = *currentRow.next;
+                printf("%s\t%s\t%s\t%s\n", currentRow.course, currentRow.room, currentRow.day, currentRow.hour);
 
             }
         }
 
+    }
+
+    printf("\n");
+
+}
+
+void printProjectedCSGToConsole(C_S_G_Row* table, bool debug) {
+
+    printf("Printing Out Projected CSG Table\n\n");
+
+    C_S_G_Row currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+        bool anythingPrinted = false;
+
+        if (strcmp(currentRow.course, "") != 0) {
+            printf("%s\t", currentRow.course);
+            anythingPrinted = true;
+        }
+        if (currentRow.StudentId != -1 && currentRow.StudentId != 0) {
+            printf("%d\t", currentRow.StudentId);
+            anythingPrinted = true;
+        }
+        if (strcmp(currentRow.grade, "") != 0) {
+            printf("%s\t", currentRow.grade);
+            anythingPrinted = true;
+        }
+
+        while (currentRow.next != NULL) {
+            currentRow = *currentRow.next;
+            if (strcmp(currentRow.course, "") != 0) {
+                printf("%s\t", currentRow.course);
+                anythingPrinted = true;
+            }
+            if (currentRow.StudentId != -1 && currentRow.StudentId != 0) {
+                printf("%d\t", currentRow.StudentId);
+                anythingPrinted = true;
+            }
+            if (strcmp(currentRow.grade, "") != 0) {
+                printf("%s\t", currentRow.grade);
+                anythingPrinted = true;
+            }
+            printf("\n");
+        }
+
+        if (anythingPrinted) {
+            printf("\n");
+        }
     }
 
     printf("\n");

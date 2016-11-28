@@ -12,9 +12,10 @@ C_S_G_Row* project(C_S_G_Row* table[], char* array_of_attributes[]) {
 	bool keepStudent = false;
 	bool keepGrade = false;
 
-	char* single_attribute = *array_of_attributes;
+	int i = 0;
+	char* single_attribute = array_of_attributes[i];
 
-	while (*single_attribute != NULL) {
+	while (strcmp(single_attribute, "") != 0) {
 
 		if (strcmp(single_attribute, "Course") == 0) {
 			keepCourse = true;
@@ -24,8 +25,10 @@ C_S_G_Row* project(C_S_G_Row* table[], char* array_of_attributes[]) {
 			keepGrade = true;
 		}
 
-		*single_attribute++;
+		i++;
+		single_attribute = array_of_attributes[i];
 	}
+
     C_S_G_Row* tablePointer;
     C_S_G_Row* returner = malloc(1009 * sizeof(C_S_G_Row));
 

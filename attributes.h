@@ -116,6 +116,7 @@ extern void printCPToConsole(CPRow* table[], bool debug);
 extern void printCDHToConsole(CDHRow* table[], bool debug);
 extern void printSNAPToConsole(SNAPRow* table[], bool debug);
 
-extern void printCDHRToConsole(CRDHrow* table[], bool debug);
+extern void printCDHRToConsole(CRDHrow* table, bool debug);
+extern void printProjectedCSGToConsole(C_S_G_Row* table, bool debug);
 
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H
