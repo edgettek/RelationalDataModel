@@ -382,20 +382,21 @@ int main(int argc, char const *argv[])
     CRDHrow* joinedRows = join(CRTable, CDHTable);
     printCDHRToConsole(joinedRows, true);
 
-    printf("TESTING SELECT OPs\n");
+    printf("\n\t *** TESTING SELECT OPERATIONS *** \n\n");
+    printf("Selecting Courses by id = 12345 \n");
     C_S_G_Row* selectedRows = selectCoursesById(CSGtable, 12345);
     while(selectedRows!=NULL){
         printf("selected Row course = %s  \n", selectedRows->course);
         selectedRows=selectedRows->next;
     }
-    printf("\n");
+    printf("\n\n");
 
     CDHRow* selectedRows2 = selectCDHByCourseAndDay(CDHTable, "CS101", "M");
+    printf("Selecting Courses by course = CS101 and day = M \n");
     while(selectedRows2!=NULL){
         printf("selected Row course = %s, selected Row time = %s  \n", selectedRows2->course, selectedRows2->hour);
         selectedRows2=selectedRows2->next;
     }
-
 
     // Testing Part 1 Delete Operations
 
