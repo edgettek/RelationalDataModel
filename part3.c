@@ -64,10 +64,31 @@ void printProjectedCSGToConsole(C_S_G_Row* table, bool debug) {
 
     C_S_G_Row currentRow;
 
+    C_S_G_Row* listOfSeen = (C_S_G_Row*) (malloc(sizeof(C_S_G_Row)));
+    listOfSeen->next = NULL;
+
     for(int i = 0; i < TABLE_SIZE; i++) {
 
         currentRow = table[i];
         bool anythingPrinted = false;
+        bool seenBefore = false;
+
+        if (strcmp(currentRow.course, "CS101") == 0) {
+            printf("");
+        }
+
+        C_S_G_Row* walker = listOfSeen;
+        while (walker != NULL) {
+            if (strcmp(currentRow.course, walker->course) == 0 && 
+                currentRow.StudentId == walker->StudentId &&
+                (strcmp(currentRow.grade, walker->grade) == 0)) {
+                    seenBefore = true;
+                    break;
+                }
+            walker = walker->next;
+        } 
+
+        if (seenBefore) {continue;}
 
         if (strcmp(currentRow.course, "") != 0) {
             printf("%s\t", currentRow.course);
@@ -101,6 +122,15 @@ void printProjectedCSGToConsole(C_S_G_Row* table, bool debug) {
 
         if (anythingPrinted) {
             printf("\n");
+            walker = listOfSeen;
+            while (walker->next != NULL) {
+                walker = walker->next;
+            }
+            C_S_G_Row* newSeen = (C_S_G_Row*) malloc(sizeof(C_S_G_Row));
+            strcpy(newSeen->course, currentRow.course);
+            newSeen->StudentId = currentRow.StudentId;
+            strcpy(newSeen->grade, currentRow.grade);
+            walker->next = newSeen;
         }
     }
 

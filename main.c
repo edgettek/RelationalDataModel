@@ -375,7 +375,8 @@ int main(int argc, char const *argv[])
 
     //PART 3 TEST:
 
-    char* array[] = {"Course", "Grade"};
+    // Please end the list to project on with an empty string. The compiler likes that
+    char* array[] = {"Student", "Grade", ""};
     C_S_G_Row* projectRow = project(CSGtable, array);
     printProjectedCSGToConsole(projectRow, true);
 
