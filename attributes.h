@@ -116,4 +116,6 @@ extern void printCPToConsole(CPRow* table[], bool debug);
 extern void printCDHToConsole(CDHRow* table[], bool debug);
 extern void printSNAPToConsole(SNAPRow* table[], bool debug);
 
+extern void printCDHRToConsole(CRDHrow* table[], bool debug);
+
 #endif //RELATIONALDATAMODEL_ATTRIBUTES_H

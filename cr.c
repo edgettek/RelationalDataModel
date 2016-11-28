@@ -46,7 +46,7 @@ CRRow* lookupCR(CRRow row, CRRow* table[], bool debug){
     CRRow* this = table[index];
 
     if(this->course == NULL) {
-        printf("Tuple (%s, %s) in CR was NOT found at index %d.\n", row.course, row.room, index);
+        if(debug) { printf("Tuple (%s, %s) in CR was NOT found at index %d.\n", row.course, row.room, index);}
         return NULL;
     }
 

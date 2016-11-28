@@ -133,7 +133,7 @@ C_S_G_Row* deleteCSG(C_S_G_Row row, C_S_G_Row* table[], bool debug) {
 			strcpy(this->grade, "");
 			strcpy(this->course, "");
 			this->StudentId = 0;
-
+			printf("Tuple (%s, %d, %s) in CSG was deleted at index %d.\n", row.course, row.StudentId, row.grade, index);
 			return this;
 		}
 

@@ -31,6 +31,33 @@ SNAPRow* selectSNAPByName(char* name, SNAPRow* table[]){
     return NULL;
 }
 
+void printCDHRToConsole(CRDHrow* table[], bool debug) {
+
+    printf("Printing Out CRDH Table\n\n");
+
+    CRDHrow* currentRow;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+
+        currentRow = table[i];
+
+        if(currentRow->course != NULL) {
+
+            printf("%s\t%s\t%s\t%s\n", currentRow->course, currentRow->room, currentRow->day, currentRow->hour);
+
+            while (currentRow->next != NULL) {
+                currentRow = currentRow->next;
+                printf("%s\t%s\t%s\t%s\n", currentRow->course, currentRow->room, currentRow->day, currentRow->hour);
+
+            }
+        }
+
+    }
+
+    printf("\n");
+
+}
+
 int projectId(SNAPRow* row){
     return row->StudentId;
 }

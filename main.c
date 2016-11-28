@@ -59,9 +59,6 @@ int main(int argc, char const *argv[])
 
 
     C_S_G_Row* lookedup = lookupCSG(toFill, CSGtable, true);
-//    for (int i = 0; i < 6; i++) {
-//        C_S_G_Row* returned = deleteCSG(toFill, CSGtable, true);
-//    }
 
     C_S_G_Row* CSGNewTable[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {
@@ -125,8 +122,7 @@ int main(int argc, char const *argv[])
     SNAPRow* thisRow = lookupSNAP(snapRow, SNAPtable, true);
     thisRow = lookupSNAP(row2, SNAPtable, true);
 
-    //SNAPRow* returned = deleteSNAP(snapRow, SNAPtable, true);
-    //returned = deleteSNAP(snapRow, SNAPtable, true);
+
 
     SNAPRow* SNAPtable2[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {
@@ -207,9 +203,6 @@ int main(int argc, char const *argv[])
     CPRow* findCPRow1 = lookupCP(cpRow, CPtable, true);
     CPRow* findCPRow2 = lookupCP(cpRow2, CPtable, true);
 
-    //CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
-    //deletedCP = deleteCP(cpRow, CPtable, true);
-
     CPRow* CPtable2[TABLE_SIZE];
     for(int i = 0;i<TABLE_SIZE; i++){
         CPtable2[i] = (CPRow*)malloc(sizeof(CPRow));
@@ -278,15 +271,12 @@ int main(int argc, char const *argv[])
     CDHRow* CDHInsert = lookupCDH(cdhRow, CDHTable, true);
     CDHInsert = lookupCDH(cdhRow1, CDHTable, true);
 
-    //CDHRow* CDHDelete = deleteCDH(cdhRow, CDHTable, true);
-    //CDHDelete = deleteCDH(cdhRow, CDHTable, true);
-
     cdhRow.course = "EE400";
     cdhRow.day = "Th";
     cdhRow.hour = "10AM";
 
     CDHInsert = lookupCDH(cdhRow, CDHTable, true);
-    //CDHDelete = deleteCDH(cdhRow, CDHTable, true);
+
 
     CDHRow* CDHTable2[TABLE_SIZE];
 
@@ -335,7 +325,7 @@ int main(int argc, char const *argv[])
     printCRRelation(CRTable, true);
 
     CRRow* lookCR = lookupCR(crRow, CRTable, true);
-    //CRRow* deleteCRTest = deleteCR(crRow, CRTable, true);
+
 
     lookCR = lookupCR(crRow, CRTable, true);
 
@@ -343,7 +333,6 @@ int main(int argc, char const *argv[])
     crRow.room = "Dewey 1101";
 
     lookCR = lookupCR(crRow, CRTable, true);
-    //deleteCRTest = deleteCR(crRow, CRTable, true);
 
     CRRow* CRTable2[TABLE_SIZE];
 
@@ -384,16 +373,50 @@ int main(int argc, char const *argv[])
     roomResult = getRoom("C.Brown", "11AM", "F", CSGtable, CRTable, SNAPtable, CDHTable);
     printf("C.Brown is in Room %s at %s on %s\n", roomResult, "11AM", "F");
 
-
-
-
-
     //PART 3 TEST:
 
     char* array[] = {"Course"};
     C_S_G_Row* projectRow = project(CSGtable, array);
 
     CRDHrow* joinedRows = join(CRTable, CDHTable);
+
+
+
+    // Testing Part 1 Delete Operations
+
+    printf("\n\t *** PART 1: TESTING DELETE OPERATIONS *** \n\n");
+
+
+    C_S_G_Row* returnedCSG = deleteCSG(toFill, CSGtable, true);
+
+    snapRow.name = "C.Brown";
+    snapRow.StudentId = 12345;
+    snapRow.address = "12 Apple St.";
+    snapRow.phone = "555-1234";
+    snapRow.next = NULL;
+
+
+    SNAPRow* returnedSNAP = deleteSNAP(snapRow, SNAPtable, true);
+    returnedSNAP = deleteSNAP(snapRow, SNAPtable, true);
+
+    CPRow* deletedCP = deleteCP(cpRow, CPtable, true);
+    deletedCP = deleteCP(cpRow, CPtable, true);
+
+    cdhRow.course = "CS101";
+    cdhRow.day = "M";
+    cdhRow.hour = "9AM";
+
+    CDHRow* CDHDelete = deleteCDH(cdhRow, CDHTable, true);
+    CDHDelete = deleteCDH(cdhRow, CDHTable, true);
+
+    CDHDelete = deleteCDH(cdhRow, CDHTable, true);
+
+    crRow.course = "CS101";
+    crRow.room = "Turing Aud.";
+
+    CRRow* deleteCRTest = deleteCR(crRow, CRTable, true);
+    deleteCRTest = deleteCR(crRow, CRTable, true);
+
 
     return 0;
 
