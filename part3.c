@@ -187,7 +187,7 @@ C_S_G_Row* selectCoursesById(C_S_G_Row* csgTable[], int studentId){
 }
 
 
-CDHRow* selectCDHByCourse(CDHRow* cdhTable[], char* course, char* day){
+CDHRow* selectCDHByCourseAndDay(CDHRow* cdhTable[], char* course, char* day){
     int index = hashTwoStrings(course, 6, day, 6, TABLE_SIZE);
 
     CDHRow* this = cdhTable[index];
